@@ -6,6 +6,7 @@
 #include "Dish.h"
 #include "Table.h"
 #include "Action.h"
+#include "Parser.h"
 
 
 class Restaurant{		
