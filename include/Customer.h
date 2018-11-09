@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "Dish.h"
+using namespace std;
 
 class Customer{
 public:
@@ -33,6 +34,7 @@ public:
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
 private:
+    bool _isOrdered;
 };
 
 
@@ -42,15 +44,19 @@ public:
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
 private:
+    bool _isOredered;
 };
 
 
 class AlchoholicCustomer : public Customer {
 public:
-    AlchoholicCustomer(std::string name, int id)
+    AlchoholicCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
 private:
+    std::vector<Dish> alcohol;
+    bool _firstRun;
+    int orders;
 };
 
 
