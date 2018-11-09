@@ -11,10 +11,11 @@ int main(int argc, char **argv) {
         std::cout << argv[0] << endl;
         std::cout << argv[1] << endl;
         std::cout << argv[2] << endl;
+        std::cout << argc << endl;
         return 0;
     }
-
-    string configurationFile = argv[1];
+    std::string pathname = __BASE_FILE__;
+    string const configurationFile = pathname.substr(0,pathname.size() - 9)+"/"+argv[1];
     Restaurant rest(configurationFile);
 }
 /**
