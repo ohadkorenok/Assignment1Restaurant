@@ -3,6 +3,6 @@
 //
 
 #include "../../include/Customer.h"
-VegetarianCustomer::VegetarianCustomer(std::string name, int id) : Customer(name, id){}
+//VegetarianCustomer::VegetarianCustomer(std::string name, int id) : Customer(name, id){}
 
 

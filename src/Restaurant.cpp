@@ -12,6 +12,7 @@ Restaurant::Restaurant(const std::string &configFilePath) {
     std::string line;
     while(std::getline(myFile, line)){
         std::istringstream iss(line);
+        std::cout<< iss.get();
     }
 
 }
