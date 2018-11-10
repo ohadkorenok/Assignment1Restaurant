@@ -26,6 +26,7 @@ private:
     vector<BaseAction*> actionsLog;
     static vector<string> extractArgumentsFromConfig(const string &configFilePath);
     bool createTablesFromArguments(vector <string> argument);
+    bool buildMenuFromArguments(string menuArgument);
 
 };
 

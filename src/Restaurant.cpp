@@ -42,29 +42,79 @@ vector<string> Restaurant::extractArgumentsFromConfig(const string &configFilePa
 
 Restaurant::Restaurant() {}
 
+/**
+ *
+ * @param configFilePath
+ */
 Restaurant::Restaurant(const std::string &configFilePath) {
+    std::string pathname = __BASE_FILE__;
+    string const configurationFile = pathname.substr(0,pathname.size() - 19)+"/"+configFilePath;
     vector<string> arguments;
-    arguments = Restaurant::extractArgumentsFromConfig(configFilePath);
+    arguments = Restaurant::extractArgumentsFromConfig(configurationFile);
     if (arguments.size() == 3) {
         createTablesFromArguments(arguments);
+        buildMenuFromArguments(arguments[2]);
     } else {
         cout << "arguments size different from 3 " << endl;
     }
 }
 
+/**
+ * This program builds the menu from the menuArgument. TODO:: return the desired flag , true or false
+ * @param menuArgument
+ * @return
+ */
+bool Restaurant::buildMenuFromArguments(string menuArgument) {
+    vector<Dish> menu;
+    string token;
+    string dishToken;
+    vector<string> dishArgument(3);
+    istringstream is(menuArgument);
+    int j =1;
+    while(getline(is, token, '\n')){
+        cout <<token << endl;
+        istringstream tokenStream(token);
+        int i =0;
+        while(getline(tokenStream, dishToken, ',') && i<=2) {
+            dishArgument[i] = dishToken;
+            i++;
+        }
+        map<string, DishType> dishTypes = {
+                {"ALC",DishType::ALC},
+                {"BVG",DishType ::BVG},
+                {"SPC",DishType ::SPC},
+                {"VEG",DishType ::VEG}
+
+        };
+        DishType dishType;
+        if(dishArgument[1] == "ALC")
+            dishType = DishType ::ALC;
+        if(dishArgument[1]== " BVG")
+            dishType = DishType ::BVG;
+        if(dishArgument[1] == "SPC")
+            dishType = DishType ::SPC;
+        if(dishArgument[1] == "VEG")
+            dishType = DishType ::VEG;
+        if(dishType){
+            Dish dish = Dish(j, dishArgument[0], stoi(dishArgument[2]), dishType);
+            this->menu.push_back(dish);
+        }
+    }
+    string ohad = "ohad";
+
+    return true;
+}
+
 std::vector<Dish> &Restaurant::getMenu() {}
 
+/**
+ * Create the tables from the arguments according to the config. (number of tables and tables capacity).
+ * @param vector<string> argument
+ * @return
+ */
 bool Restaurant::createTablesFromArguments(vector<string> argument) {
     int numberOfTables = stoi(argument[0]);
     vector<Table *> tables(numberOfTables);
-//    regex rgx("(\\d+)");
-//    smatch matches;
-//    regex_search(argument[1], matches, rgx);
-//    for (int i = 0; i <matches.size() ; ++i) {
-//        int ohad  = stoi(matches[i].str());
-//        cout << matches[i].str() << endl;
-//    }
-//    string ohad1 = "ohad";
     string token;
     int i = 0;
     istringstream is(argument[1]);
