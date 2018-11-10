@@ -6,23 +6,28 @@
 #include "Dish.h"
 #include "Table.h"
 #include "Action.h"
-
+#include "Parser.h"
+using namespace std;
 
 class Restaurant{		
 public:
 	Restaurant();
-    Restaurant(const std::string &configFilePath);
+    Restaurant(const string &configFilePath);
     void start();
     int getNumOfTables() const;
     Table* getTable(int ind);
-	const std::vector<BaseAction*>& getActionsLog() const; // Return a reference to the history of actions
-    std::vector<Dish>& getMenu();
+	const vector<BaseAction*>& getActionsLog() const; // Return a reference to the history of actions
+    vector<Dish>& getMenu();
 
 private:
     bool open;
-    std::vector<Table*> tables;
-    std::vector<Dish> menu;
-    std::vector<BaseAction*> actionsLog;
+    vector<Table*> tables;
+    vector<Dish> menu;
+    vector<BaseAction*> actionsLog;
+    static vector<string> extractArgumentsFromConfig(const string &configFilePath);
+    bool createTablesFromArguments(vector <string> argument);
+    bool buildMenuFromArguments(string menuArgument);
+
 };
 
 #endif

@@ -4,6 +4,7 @@
 #include <vector>
 #include "Customer.h"
 #include "Dish.h"
+using namespace std;
 
 typedef std::pair<int, Dish> OrderPair;
 
@@ -21,6 +22,12 @@ public:
     void closeTable();
     int getBill();
     bool isOpen();
+    Table & operator=(const Table &Table);
+
+//    bool operator==(const Table &rhs, Table &Table) const;
+
+//    bool operator!=(const Table &rhs) const;
+
 private:
     int capacity;
     bool open;
