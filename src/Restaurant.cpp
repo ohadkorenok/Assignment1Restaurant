@@ -48,7 +48,7 @@ Restaurant::Restaurant() {}
  */
 Restaurant::Restaurant(const std::string &configFilePath) {
     std::string pathname = __BASE_FILE__;
-    string const configurationFile = pathname.substr(0,pathname.size() - 19)+"/"+configFilePath;
+    string const configurationFile = pathname.substr(0, pathname.size() - 19) + "/" + configFilePath;
     vector<string> arguments;
     arguments = Restaurant::extractArgumentsFromConfig(configurationFile);
     if (arguments.size() == 3) {
@@ -70,42 +70,45 @@ bool Restaurant::buildMenuFromArguments(string menuArgument) {
     string dishToken;
     vector<string> dishArgument(3);
     istringstream is(menuArgument);
-    int j =1;
-    while(getline(is, token, '\n')){
-        cout <<token << endl;
+    int j = 1;
+    while (getline(is, token, '\n')) {
+        cout << token << endl;
         istringstream tokenStream(token);
-        int i =0;
-        while(getline(tokenStream, dishToken, ',') && i<=2) {
+        int i = 0;
+        while (getline(tokenStream, dishToken, ',') && i <= 2) {
             dishArgument[i] = dishToken;
             i++;
         }
         map<string, DishType> dishTypes = {
-                {"ALC",DishType::ALC},
-                {"BVG",DishType ::BVG},
-                {"SPC",DishType ::SPC},
-                {"VEG",DishType ::VEG}
+                {"ALC", DishType::ALC},
+                {"BVG", DishType::BVG},
+                {"SPC", DishType::SPC},
+                {"VEG", DishType::VEG}
 
         };
         DishType dishType;
-        if(dishArgument[1] == "ALC")
-            dishType = DishType ::ALC;
-        if(dishArgument[1]== " BVG")
-            dishType = DishType ::BVG;
-        if(dishArgument[1] == "SPC")
-            dishType = DishType ::SPC;
-        if(dishArgument[1] == "VEG")
-            dishType = DishType ::VEG;
-        if(dishType){
+        if (dishArgument[1] == "ALC") {
+            dishType = DishType::ALC;
+        } else if (dishArgument[1] == " BVG") {
+            dishType = DishType::BVG;
+        } else if (dishArgument[1] == "SPC") {
+            dishType = DishType::SPC;
+        } else if (dishArgument[1] == "VEG") {
+            dishType = DishType::VEG;
+        }
+        else return false;
+        if (dishType) {
             Dish dish = Dish(j, dishArgument[0], stoi(dishArgument[2]), dishType);
             this->menu.push_back(dish);
         }
     }
-    string ohad = "ohad";
 
     return true;
 }
 
-std::vector<Dish> &Restaurant::getMenu() {}
+std::vector<Dish> &Restaurant::getMenu() {
+    return this->menu;
+}
 
 /**
  * Create the tables from the arguments according to the config. (number of tables and tables capacity).
@@ -127,9 +130,13 @@ bool Restaurant::createTablesFromArguments(vector<string> argument) {
     return true;
 }
 
-int Restaurant::getNumOfTables() const {}
+int Restaurant::getNumOfTables() const {
+    return this->tables.size();
+}
 
-Table *Restaurant::getTable(int ind) {}
+Table *Restaurant::getTable(int ind) {
+    return this->tables[ind];
+}
 
 void Restaurant::start() {}
 

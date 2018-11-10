@@ -1,11 +1,13 @@
 //
 // Created by nitzan on 09/11/18.
 //
+
+
 #include "../../include/Customer.h"
 #include "../../include/Dish.h"
 #include <algorithm>
 using namespace std;
-
+//TODO :: change default value of customerDish.
 AlchoholicCustomer::AlchoholicCustomer(std::string name, int id) : Customer(name,id),_firstRun(true),orders(0){};
 vector<int> AlchoholicCustomer::order(const std::vector<Dish> &menu) {
     vector<int> vecofOrder(1,0);

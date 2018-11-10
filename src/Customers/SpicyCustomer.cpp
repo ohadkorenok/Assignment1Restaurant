@@ -1,6 +1,8 @@
 //
 // Created by nitzan on 09/11/18.
 //
+
+//TODO :: change default value of customerDish.
 #include "../../include/Customer.h"
 #include <limits>
 SpicyCustomer::SpicyCustomer(std::string name, int id) : Customer(name,id),_isOredered(false){};
