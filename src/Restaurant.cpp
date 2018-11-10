@@ -138,6 +138,15 @@ Table *Restaurant::getTable(int ind) {
     return this->tables[ind];
 }
 
-void Restaurant::start() {}
+void Restaurant::start() {
+    cout << "restaurant is now open! "<< endl;
+    string line;
+    getline(cin, line);
+    string firstWord = line.substr(0,line.find(" "));
+    Parser::parse(firstWord, line);
+
+    string ohad = "ohad";
+}
+
 
 

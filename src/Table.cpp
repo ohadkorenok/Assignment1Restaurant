@@ -61,6 +61,10 @@ std::vector<OrderPair> &Table::getOrders() {
     return orderList;
 }
 
+/**
+ *
+ * @param menu gets menu
+ */
 void Table::order(const std::vector<Dish> &menu) {
     if(!open){
         std::cout << "table is not open" << endl;
@@ -69,7 +73,7 @@ void Table::order(const std::vector<Dish> &menu) {
     for (int i = 0; i < customersList.size(); ++i) {
         for (int customerOrder1 :  customersList[i]->order(menu)){
             if(customerOrder1 != 0) {
-                orderList.push_back(OrderPair(customersList[i].getId(), menu[customerOrder1]));
+                orderList.push_back(OrderPair(customersList[i]->getId(), menu[customerOrder1]));
             }
         }
     }
@@ -82,6 +86,8 @@ void Table::openTable() {
 
 void Table::closeTable() {
     open = false;
+    orderList.clear();
+    customersList.clear();
 }
 
 int Table::getBill() {

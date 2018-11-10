@@ -5,8 +5,14 @@
 #ifndef ASSIGNMENT1RESTAURANT_PARSER_H
 #define ASSIGNMENT1RESTAURANT_PARSER_H
 
+#include <map>
+#include "Action.h"
+#
 class Parser{
 public:
+static void parse(std::string firstWord, std::string restOfLine);
+
+private:
 };
 
 
