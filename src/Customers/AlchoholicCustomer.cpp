@@ -10,7 +10,7 @@ using namespace std;
 //TODO :: change default value of customerDish.
 AlchoholicCustomer::AlchoholicCustomer(std::string name, int id) : Customer(name,id),_firstRun(true),orders(0){};
 vector<int> AlchoholicCustomer::order(const std::vector<Dish> &menu) {
-    vector<int> vecofOrder(1,0);
+    vector<int> vecofOrder(1,-1);
     if(_firstRun){
         for(vector<Dish>::const_iterator it=menu.begin();it!=menu.end();++it){
             if(it->getType()==ALC)
@@ -22,7 +22,7 @@ vector<int> AlchoholicCustomer::order(const std::vector<Dish> &menu) {
     }
     else{
         if(orders>(alcohol.size()-1))
-            vecofOrder.at(0)=0;
+            vecofOrder.at(0)=-1;
         else {
             vecofOrder.at(0) = alcohol.at(orders).getId();
             if (orders < alcohol.size())
