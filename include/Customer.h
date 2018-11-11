@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "Dish.h"
+
 using namespace std;
 
 class Customer{
@@ -53,13 +54,15 @@ private:
 
 
 class AlchoholicCustomer : public Customer {
+    typedef std::pair<int, int> AlcoholPair; //first=id of alcohol,second=price;
 public:
     AlchoholicCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
     std::string getType() const;
 private:
-    std::vector<Dish> alcohol;
+    int findCheapestNerase(vector<AlcoholPair> &alc);
+    std::vector<AlcoholPair> alcohol;
     bool _firstRun;
     int orders;
 };

@@ -100,19 +100,19 @@ vector<Customer*> Parser::parseOpen(string match) {
         string strategy;
         getline(is2, name, ',');
         getline(is2,strategy, ',');
-//        if (strategy == "ALC") {
-//            customer1 = new AlchoholicCustomer(name,i);
-//        } else if (strategy == "CHP") {
-//            customer1 = new CheapCustomer(name, i);
-//        } else if (strategy == "SPC") {
-//            customer1 = new SpicyCustomer(name, i);
-//        } else if (strategy == "VEG") {
-//            customer1 = new VegetarianCustomer(name, i);
-//        }
-//        if(customer1!= nullptr){
-//            customerList.push_back(customer1);
-//            i++;
-//        }
+        if (strategy == "ALC") {
+            customer1 = new AlchoholicCustomer(name,i);
+        } else if (strategy == "CHP") {
+            customer1 = new CheapCustomer(name, i);
+        } else if (strategy == "SPC") {
+            customer1 = new SpicyCustomer(name, i);
+        } else if (strategy == "VEG") {
+            customer1 = new VegetarianCustomer(name, i);
+        }
+        if(customer1!= nullptr){
+            customerList.push_back(customer1);
+            i++;
+        }
     }
     return customerList;
 }

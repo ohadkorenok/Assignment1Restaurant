@@ -14,7 +14,6 @@ public:
     std::string getName() const;
     int getPrice() const;
     DishType getType() const;
-    static bool compare(const Dish &a1,const Dish &a2);
 private:
 	const int id;
     const std::string name;
