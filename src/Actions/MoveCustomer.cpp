@@ -37,3 +37,13 @@ void MoveCustomer::act(Restaurant &restaurant) {
         complete();
     }
 }
+string MoveCustomer::toString() const {
+    string toRet="move "+to_string(srcTable)+" "+to_string(dstTable)+" "+to_string(id);
+    if(this->getStatus()==COMPLETED)
+        toRet+=" COMPLETED";
+    else if(this->getStatus()==ERROR)
+        toRet+=" ERROR:"+this->getErrorMsg();
+    else
+        toRet="You didn't activate act method.";
+    return toRet;
+}

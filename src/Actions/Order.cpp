@@ -21,3 +21,13 @@ void Order::act(Restaurant &restaurant) {
         complete();
     }
 }
+string Order::toString() const {
+    string toRet="order "+to_string(tableId);
+    if(this->getStatus()==COMPLETED)
+        toRet+=" COMPLETED";
+    else if(this->getStatus()==ERROR)
+        toRet+=" ERROR:"+this->getErrorMsg();
+    else
+        toRet="You didn't activate act method.";
+    return toRet;
+}

@@ -23,5 +23,14 @@ void OpenTable::act(Restaurant &restaurant) {
 }
 string OpenTable::toString() const {
     string toRet="open "+to_string(tableId);
-
+    for(Customer* i : customers){
+        toRet+=" "+i->getName()+","+i->getType();
+    }
+    if(this->getStatus()==COMPLETED)
+        toRet+=" COMPLETED";
+    else if(this->getStatus()==ERROR)
+        toRet+=" ERROR:"+this->getErrorMsg();
+    else
+        toRet="You didn't activate act method.";
+    return toRet;
 }

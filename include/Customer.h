@@ -11,6 +11,7 @@ public:
     Customer(std::string c_name, int c_id);
     virtual std::vector<int> order(const std::vector<Dish> &menu)=0;
     virtual std::string toString() const = 0;
+    virtual std::string getType() const = 0;
     std::string getName() const;
     int getId() const;
 private:
@@ -24,6 +25,7 @@ public:
     VegetarianCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
+    std::string getType() const;
 private:
 };
 
@@ -33,6 +35,7 @@ public:
     CheapCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
+    std::string getType() const;
 private:
     bool _isOrdered;
 };
@@ -43,6 +46,7 @@ public:
     SpicyCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
+    std::string getType() const;
 private:
     bool _isOredered;
 };
@@ -53,6 +57,7 @@ public:
     AlchoholicCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
+    std::string getType() const;
 private:
     std::vector<Dish> alcohol;
     bool _firstRun;

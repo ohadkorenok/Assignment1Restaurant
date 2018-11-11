@@ -7,17 +7,18 @@
 using namespace std;
 
 PrintActionsLog::PrintActionsLog() {};
-/**
- * TO DO : print the error in case of error message appear.
- * @param restaurant
- */
 void PrintActionsLog::act(Restaurant &restaurant) {
     for(BaseAction* i : restaurant.getActionsLog()){
-        if(i->getStatus()==COMPLETED)
-            cout<<i->toString()+" "+to_string(i->getStatus())<<endl;
-        else if(i->getStatus()==ERROR)
-            cout<<i->toString()+" "+to_string(i->getStatus())+":"+i->getErrorMsg()<<endl;
+        cout<<i->toString()<endl;
     }
     complete();
 
+}
+string PrintActionsLog::toString() const {
+    string toRet="log";
+    if(this->getStatus()==COMPLETED)
+        toRet+=" COMPLETED";
+    else
+        toRet="You didn't activate act method.";
+    return toRet;
 }
