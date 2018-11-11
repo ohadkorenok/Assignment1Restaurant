@@ -40,8 +40,9 @@ void Parser::parse(std::string firstWord, std::string fullLine, Restaurant &rest
 
             string stringOfMatch= smatch1[2].str();
             vector<Customer*> customerList;
-//            customerList = parseOpen(stringOfMatch);
-//            OpenTable(stoi(smatch[1].str()), customerList);
+            customerList = parseOpen(stringOfMatch);
+            customAction = new OpenTable(stoi(smatch1[1].str()), customerList);
+
         }
 
         if(firstWord == "order"){
@@ -81,50 +82,48 @@ void Parser::parse(std::string firstWord, std::string fullLine, Restaurant &rest
         runAction(customAction, restaurant);
     }
 
-    string ohad = "ohad";
-
-
-
 }
 
 vector<Customer*> Parser::parseOpen(string match) {
 
-    istringstream is1 (match);
+    istringstream is1(match);
     string customer;
-    vector <Customer*> customerList;
-    int i=0;
-    while(getline(is1, customer , ' ')) {
+    vector<Customer *> customerList;
+    int i = 0;
+    while (getline(is1, customer, ' ')) {
         istringstream is2(customer);
         string name;
         Customer *customer1 = nullptr;
         string strategy;
         getline(is2, name, ',');
-        getline(is2,strategy, ',');
+        getline(is2, strategy, ',');
 //        if (strategy == "ALC") {
-//            customer1 = new AlchoholicCustomer(name,i);
-//        } else if (strategy == "CHP") {
-//            customer1 = new CheapCustomer(name, i);
-//        } else if (strategy == "SPC") {
-//            customer1 = new SpicyCustomer(name, i);
-//        } else if (strategy == "VEG") {
-//            customer1 = new VegetarianCustomer(name, i);
-//        }
-//        if(customer1!= nullptr){
-//            customerList.push_back(customer1);
-//            i++;
-//        }
+//         }   customer1 = new AlchoholicCustomer(name,i);
+     if (strategy == "CHP") {
+            customer1 = new CheapCustomer(name, i);
+        } else if (strategy == "SPC") {
+            customer1 = new SpicyCustomer(name, i);
+        } else if (strategy == "VEG") {
+            customer1 = new VegetarianCustomer(name, i);
+        }
+        if(customer1!= nullptr){
+            customerList.push_back(customer1);
+            i++;
+        }
     }
-    return customerList;
-}
+        return customerList;
+    }
 
 /**
  * This method gets an action as an argument, runs it, adds the action into the actionsLog of the restaurant.
  * @param action
  * @param restaurant
  */
-void Parser::runAction(BaseAction *action, Restaurant &restaurant) {
-    action->act(restaurant);
-    vector<BaseAction*> actionsLog= restaurant.getActionsLog();
-    actionsLog.push_back(action);
-    cout << "<--------------started to run the action "+action->toString()+" --------------- > ";
-}
+    void Parser::runAction(BaseAction *action, Restaurant &restaurant) {
+        action->act(restaurant);
+        vector<BaseAction *> actionsLog = restaurant.getActionsLog();
+        actionsLog.push_back(action);
+        cout << "<--------------started to run the action " + action->toString() + " --------------- > ";
+    }
+
+

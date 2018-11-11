@@ -21,7 +21,7 @@ vector<string> Restaurant::extractArgumentsFromConfig(const string &configFilePa
     if (myFile.is_open()) {
         while (std::getline(myFile, line) && i <= 2) {
             std::istringstream iss(line);
-            while (line[0] == '#' || line == "\r") {
+            while (line[0] == '#' || line == "\r" || line.empty()|| line == "\n") {
                 std::getline(myFile, line);
             }
             if (i == 2) {

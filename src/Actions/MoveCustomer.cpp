@@ -29,7 +29,7 @@ void MoveCustomer::act(Restaurant &restaurant) {
             if (copySrcOrders[j].first == id) {
                 t2->getOrders().push_back(copySrcOrders[j]);
             } else {
-                srcOrders.push_back(copySrcOrders[j]);
+                srcOrders.push_back(copySrcOrders[j]); //TODO ::check what the fuck is going on with the copy.
             }
         }
         t2->addCustomer(t1->getCustomer(id));
