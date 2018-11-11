@@ -26,5 +26,11 @@ string OpenTable::toString() const {
     for(Customer* i : customers){
         toRet+=" "+i->getName()+","+i->getType();
     }
-
+    if(this->getStatus()==COMPLETED)
+        toRet+=" COMPLETED";
+    else if(this->getStatus()==ERROR)
+        toRet+=" ERROR:"+this->getErrorMsg();
+    else
+        toRet="You didn't activate act method.";
+    return toRet;
 }
