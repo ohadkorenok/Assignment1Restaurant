@@ -7,12 +7,15 @@
 
 #include <map>
 #include "Action.h"
+#include "Customer.h"
 #
 class Parser{
 public:
 static void parse(std::string firstWord, std::string restOfLine);
 
 private:
+
+    static vector<Customer*> parseOpen(string match);
 };
 
 

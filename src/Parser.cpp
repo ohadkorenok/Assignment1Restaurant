@@ -36,17 +36,11 @@ void Parser::parse(std::string firstWord, std::string fullLine) {
         cout<<"hi"<<endl;
 
         if(firstWord == "open"){
+
             string stringOfMatch= smatch1[2].str();
-            istringstream is1 (stringOfMatch);
-            string customer;
-            while(getline(is1, customer , ' ')) {
-                istringstream is2(customer);
-                string name;
-                string strategy;
-                getline(is2, name, ',');
-                getline(is2,strategy, ',');
-                // TODO :: build new customer and push it down the Customer Vector.
-            }
+            vector<Customer*> customerList;
+            customerList = parseOpen(stringOfMatch);
+//            OpenTable(stoi(smatch[1].str()), customerList);
             string adva = "adva";
         }
 
@@ -85,4 +79,34 @@ void Parser::parse(std::string firstWord, std::string fullLine) {
 
 
 
+}
+
+vector<Customer*> Parser::parseOpen(string match) {
+
+    istringstream is1 (match);
+    string customer;
+    vector <Customer*> customerList;
+    int i=0;
+    while(getline(is1, customer , ' ')) {
+        istringstream is2(customer);
+        string name;
+        Customer *customer1 = nullptr;
+        string strategy;
+        getline(is2, name, ',');
+        getline(is2,strategy, ',');
+        if (strategy == "ALC") {
+            customer1 = new AlchoholicCustomer(name,i);
+        } else if (strategy == "CHP") {
+            customer1 = new CheapCustomer(name, i);
+        } else if (strategy == "SPC") {
+            customer1 = new SpicyCustomer(name, i);
+        } else if (strategy == "VEG") {
+            customer1 = new VegetarianCustomer(name, i);
+        }
+        if(customer1!= nullptr){
+            customerList.push_back(customer1);
+            i++;
+        }
+    }
+    return customerList;
 }

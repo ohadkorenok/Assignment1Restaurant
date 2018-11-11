@@ -79,13 +79,6 @@ bool Restaurant::buildMenuFromArguments(string menuArgument) {
             dishArgument[i] = dishToken;
             i++;
         }
-        map<string, DishType> dishTypes = {
-                {"ALC", DishType::ALC},
-                {"BVG", DishType::BVG},
-                {"SPC", DishType::SPC},
-                {"VEG", DishType::VEG}
-
-        };
         DishType dishType;
         if (dishArgument[1] == "ALC") {
             dishType = DishType::ALC;

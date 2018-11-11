@@ -72,7 +72,7 @@ void Table::order(const std::vector<Dish> &menu) {
     vector<int> customerOrder;
     for (int i = 0; i < customersList.size(); ++i) {
         for (int customerOrder1 :  customersList[i]->order(menu)){
-            if(customerOrder1 != 0) {
+            if(customerOrder1 != -1) {
                 orderList.push_back(OrderPair(customersList[i]->getId(), menu[customerOrder1]));
             }
         }
