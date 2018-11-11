@@ -30,3 +30,4 @@ vector<int> AlchoholicCustomer::order(const std::vector<Dish> &menu) {
     return vecofOrder;
 }
 std::string AlchoholicCustomer::toString() const {return (std::string(getName())+","+std::to_string(getId()));}
+std::string AlchoholicCustomer::getType() const {return "alc";}

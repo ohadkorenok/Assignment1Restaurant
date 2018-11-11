@@ -37,3 +37,4 @@ std::vector<int> SpicyCustomer::order(const std::vector<Dish> &menu) {
     return vecofOrder;
 };
 std::string SpicyCustomer::toString() const {return (std::string(getName())+","+std::to_string(getId()));};
+std::string SpicyCustomer::getType() const {return "spc";}

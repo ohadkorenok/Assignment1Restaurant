@@ -11,6 +11,7 @@ public:
     Customer(std::string c_name, int c_id);
     virtual std::vector<int> order(const std::vector<Dish> &menu)=0;
     virtual std::string toString() const = 0;
+    virtual std::string getType() const=0;
     std::string getName() const;
     int getId() const;
 private:
