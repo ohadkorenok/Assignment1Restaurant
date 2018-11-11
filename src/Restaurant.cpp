@@ -137,9 +137,13 @@ void Restaurant::start() {
     string line;
     getline(cin, line);
     string firstWord = line.substr(0,line.find(" "));
-    Parser::parse(firstWord, line);
+    Parser::parse(firstWord, line, *this);
 
     string ohad = "ohad";
+}
+
+void Restaurant::closeRestaurant() {
+    this->open = false;
 }
 
 

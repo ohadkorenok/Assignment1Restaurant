@@ -1,7 +1,7 @@
 #include "../include/Parser.h"
 #include "regex"
 
-void Parser::parse(std::string firstWord, std::string fullLine) {
+void Parser::parse(std::string firstWord, std::string fullLine, Restaurant &restaurant) {
 
     regex openReg("open\\s*(\\d+)\\s*(.*)");
     regex orderReg("order\\s*(\\d+)");
@@ -39,13 +39,14 @@ void Parser::parse(std::string firstWord, std::string fullLine) {
 
             string stringOfMatch= smatch1[2].str();
             vector<Customer*> customerList;
-            customerList = parseOpen(stringOfMatch);
+//            customerList = parseOpen(stringOfMatch);
 //            OpenTable(stoi(smatch[1].str()), customerList);
             string adva = "adva";
         }
 
         if(firstWord == "order"){
-
+            int tableId = stoi(smatch1[1].str());
+            Order *orderAction = new Order(tableId);
         }
 
         if(firstWord == "move"){
@@ -94,19 +95,23 @@ vector<Customer*> Parser::parseOpen(string match) {
         string strategy;
         getline(is2, name, ',');
         getline(is2,strategy, ',');
-        if (strategy == "ALC") {
-            customer1 = new AlchoholicCustomer(name,i);
-        } else if (strategy == "CHP") {
-            customer1 = new CheapCustomer(name, i);
-        } else if (strategy == "SPC") {
-            customer1 = new SpicyCustomer(name, i);
-        } else if (strategy == "VEG") {
-            customer1 = new VegetarianCustomer(name, i);
-        }
-        if(customer1!= nullptr){
-            customerList.push_back(customer1);
-            i++;
-        }
+//        if (strategy == "ALC") {
+//            customer1 = new AlchoholicCustomer(name,i);
+//        } else if (strategy == "CHP") {
+//            customer1 = new CheapCustomer(name, i);
+//        } else if (strategy == "SPC") {
+//            customer1 = new SpicyCustomer(name, i);
+//        } else if (strategy == "VEG") {
+//            customer1 = new VegetarianCustomer(name, i);
+//        }
+//        if(customer1!= nullptr){
+//            customerList.push_back(customer1);
+//            i++;
+//        }
     }
     return customerList;
+}
+
+void Parser::runAction(BaseAction *action, Restaurant &restaurant) {
+    action->act(restaurant);
 }
