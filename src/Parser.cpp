@@ -1,8 +1,8 @@
 #include "../include/Parser.h"
+#include "../include/Restaurant.h"
 #include "regex"
 
 void Parser::parse(std::string firstWord, std::string fullLine, Restaurant &restaurant) {
-
     regex openReg("open\\s*(\\d+)\\s*(.*)");
     regex orderReg("order\\s*(\\d+)");
     regex moveReg("move\\s*(\\d+)\\s*(\\d+)\\s*(\\d+)");
@@ -26,7 +26,6 @@ void Parser::parse(std::string firstWord, std::string fullLine, Restaurant &rest
             {"backup",backupRestaurantReg},
             {"restore",restoreReg}
     };
-
     std::smatch smatch1;
     if(regex_search(fullLine, smatch1, regexDict[firstWord])){
         cout<< smatch1[0]<<endl;
@@ -35,6 +34,7 @@ void Parser::parse(std::string firstWord, std::string fullLine, Restaurant &rest
     if(!smatch1.empty() ){
         cout<<"hi"<<endl;
 
+        BaseAction* customAction = nullptr;
         if(firstWord == "open"){
 
             string stringOfMatch= smatch1[2].str();
@@ -46,34 +46,40 @@ void Parser::parse(std::string firstWord, std::string fullLine, Restaurant &rest
 
         if(firstWord == "order"){
             int tableId = stoi(smatch1[1].str());
-            Order *orderAction = new Order(tableId);
+            customAction = new Order(tableId);
         }
 
         if(firstWord == "move"){
-
+            int originTableId = stoi(smatch1[1]);
+            int destinationTableId = stoi(smatch1[2]);
+            int customerId = stoi(smatch1[3]);
+            customAction = new MoveCustomer(originTableId, destinationTableId, customerId);
         }
         if(firstWord == "close"){
-
+            int tableId = stoi(smatch1[1]);
+            customAction= new Close(tableId);
         }
         if(firstWord == "closeall"){
-
+            customAction = new CloseAll();
         }
         if(firstWord == "menu"){
-
+            customAction = new PrintMenu();
         }
         if(firstWord == "status"){
-
+            int tableId = stoi(smatch1[1]);
+            customAction = new PrintTableStatus(tableId);
         }
         if(firstWord == "log"){
-
+            customAction = new PrintActionsLog();
         }
         if(firstWord == "backuo"){
-
+            customAction = new BackupRestaurant();
         }
 
         if(firstWord == "restore"){
-
+            customAction = new RestoreResturant();
         }
+        runAction(customAction, restaurant);
     }
 
     string ohad = "ohad";
@@ -112,6 +118,14 @@ vector<Customer*> Parser::parseOpen(string match) {
     return customerList;
 }
 
+/**
+ * This method gets an action as an argument, runs it, adds the action into the actionsLog of the restaurant.
+ * @param action
+ * @param restaurant
+ */
 void Parser::runAction(BaseAction *action, Restaurant &restaurant) {
     action->act(restaurant);
+    vector<BaseAction*> actionsLog= restaurant.getActionsLog();
+    actionsLog.push_back(action);
+    cout << "<--------------started to run the action "+action->toString()+" --------------- > ";
 }

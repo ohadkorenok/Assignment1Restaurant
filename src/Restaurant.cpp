@@ -8,7 +8,9 @@
 
 using namespace std;
 
-const std::vector<BaseAction *> &Restaurant::getActionsLog() const {}
+const std::vector<BaseAction *> &Restaurant::getActionsLog() const {
+    return this->actionsLog;
+}
 
 vector<string> Restaurant::extractArgumentsFromConfig(const string &configFilePath) {
     std::vector<string> arguments(3);
@@ -47,6 +49,7 @@ Restaurant::Restaurant() {}
  * @param configFilePath
  */
 Restaurant::Restaurant(const std::string &configFilePath) {
+    this->open = true;
     std::string pathname = __BASE_FILE__;
     string const configurationFile = pathname.substr(0, pathname.size() - 19) + "/" + configFilePath;
     vector<string> arguments;
