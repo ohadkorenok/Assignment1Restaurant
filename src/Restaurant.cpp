@@ -98,7 +98,6 @@ bool Restaurant::buildMenuFromArguments(string menuArgument) {
             this->menu.push_back(dish);
         }
     }
-    string ohad = "ohad";
 
     return true;
 }

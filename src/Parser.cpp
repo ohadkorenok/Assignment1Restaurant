@@ -1,5 +1,6 @@
 #include "../include/Parser.h"
 #include "../include/Restaurant.h"
+#include "../include/Action.h"
 #include "regex"
 
 void Parser::parse(std::string firstWord, std::string fullLine, Restaurant &restaurant) {
@@ -41,14 +42,12 @@ void Parser::parse(std::string firstWord, std::string fullLine, Restaurant &rest
             vector<Customer*> customerList;
 //            customerList = parseOpen(stringOfMatch);
 //            OpenTable(stoi(smatch[1].str()), customerList);
-            string adva = "adva";
         }
 
         if(firstWord == "order"){
             int tableId = stoi(smatch1[1].str());
             customAction = new Order(tableId);
         }
-
         if(firstWord == "move"){
             int originTableId = stoi(smatch1[1]);
             int destinationTableId = stoi(smatch1[2]);
@@ -69,16 +68,16 @@ void Parser::parse(std::string firstWord, std::string fullLine, Restaurant &rest
             int tableId = stoi(smatch1[1]);
             customAction = new PrintTableStatus(tableId);
         }
-        if(firstWord == "log"){
-            customAction = new PrintActionsLog();
-        }
-        if(firstWord == "backuo"){
-            customAction = new BackupRestaurant();
-        }
-
-        if(firstWord == "restore"){
-            customAction = new RestoreResturant();
-        }
+//        if(firstWord == "log"){
+//            customAction = new PrintActionsLog();
+//        }
+//        if(firstWord == "backuo"){
+//            customAction = new BackupRestaurant();
+//        }
+//
+//        if(firstWord == "restore"){
+//            customAction = new RestoreResturant();
+//        }
         runAction(customAction, restaurant);
     }
 

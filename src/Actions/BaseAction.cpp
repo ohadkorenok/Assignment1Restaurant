@@ -3,6 +3,8 @@
 //
 #include "../../include/Action.h"
 #include <iostream>
+#include <vector>
+#include <string>
 
 using namespace std;
 BaseAction::BaseAction() : errorMsg("") {status=PENDING;}
