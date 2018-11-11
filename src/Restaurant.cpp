@@ -132,5 +132,6 @@ int Restaurant::getNumOfTables() const {}
 Table *Restaurant::getTable(int ind) {}
 
 void Restaurant::start() {}
+void Restaurant::closeRestaurant() { open=false; }
 
 

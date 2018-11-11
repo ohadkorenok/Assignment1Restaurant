@@ -5,7 +5,7 @@
 #include <limits>
 SpicyCustomer::SpicyCustomer(std::string name, int id) : Customer(name,id),_isOredered(false){};
 std::vector<int> SpicyCustomer::order(const std::vector<Dish> &menu) {
-    std::vector<int> vecofOrder(1,0);
+    std::vector<int> vecofOrder(1,-1);
     if(!_isOredered){
         int mostexpensivedishPrice=-1;
         int mostexpID=std::numeric_limits<int>::max();

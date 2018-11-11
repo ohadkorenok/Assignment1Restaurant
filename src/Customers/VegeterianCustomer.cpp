@@ -5,7 +5,7 @@
 #include "../../include/Customer.h"
 VegetarianCustomer::VegetarianCustomer(std::string name, int id) : Customer(name, id){}
 std::vector<int> VegetarianCustomer::order(const std::vector<Dish> &menu) {
-    std::vector<int> vecofOrder(2,0);
+    std::vector<int> vecofOrder(2,-1);
     int smallestID=std::numeric_limits<int>::max();
     int expensiveBVGid=std::numeric_limits<int>::max();
     int maxBVGprice=-1;
@@ -15,11 +15,10 @@ std::vector<int> VegetarianCustomer::order(const std::vector<Dish> &menu) {
         if(it->getType()==BVG & it->getPrice()>=maxBVGprice & it->getId()<expensiveBVGid)
             expensiveBVGid=it->getId();
     }
-    vecofOrder[1]=smallestID;
-    if(smallestID!=0)
-        vecofOrder[2]=expensiveBVGid;
-    else
-        vecofOrder[2]=0;
+    if(smallestID<numeric_limits<int>::max() & expensiveBVGid<numeric_limits<int>::max()) {
+        vecofOrder[0]=smallestID;
+        vecofOrder[1] = expensiveBVGid;
+    }
     return vecofOrder;
 }
 std::string VegetarianCustomer::toString() const {

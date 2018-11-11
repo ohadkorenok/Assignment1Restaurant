@@ -5,7 +5,7 @@
 #include <limits>
 CheapCustomer::CheapCustomer(std::string name, int id) : Customer(name,id),_isOrdered(false) {};
 std::vector<int> CheapCustomer::order(const std::vector<Dish> &menu) {
-    std::vector<int> vecofOrder(1,0);
+    std::vector<int> vecofOrder(1,-1);
     if(!_isOrdered){
         int cheapestdishPrice=std::numeric_limits<int>::max();
         int cheapestdishID=0;
