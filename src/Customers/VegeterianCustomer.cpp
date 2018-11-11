@@ -26,3 +26,4 @@ std::vector<int> VegetarianCustomer::order(const std::vector<Dish> &menu) {
 std::string VegetarianCustomer::toString() const {
     return (std::string(getName())+","+std::to_string(getId()));
 }
+std::string VegetarianCustomer::getType() const {return "veg";}
