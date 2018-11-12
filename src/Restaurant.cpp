@@ -137,11 +137,11 @@ Table *Restaurant::getTable(int ind) {
 void Restaurant::start() {
     cout << "restaurant is now open! "<< endl;
     string line;
-    getline(cin, line);
-    string firstWord = line.substr(0,line.find(" "));
-    Parser::parse(firstWord, line, *this);
-
-    string ohad = "ohad";
+    while(true){
+        getline(cin, line);
+        string firstWord = line.substr(0,line.find(" "));
+        Parser::parse(firstWord, line, *this);
+    }
 }
 
 void Restaurant::closeRestaurant() {

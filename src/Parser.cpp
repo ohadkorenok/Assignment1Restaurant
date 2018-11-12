@@ -30,7 +30,6 @@ void Parser::parse(std::string firstWord, std::string fullLine, Restaurant &rest
     std::smatch smatch1;
     if(regex_search(fullLine, smatch1, regexDict[firstWord])){
         cout<< smatch1[0]<<endl;
-//        cout<< smatch1[1]<<endl;
     }
     if(!smatch1.empty() ){
         cout<<"hi"<<endl;
@@ -42,7 +41,6 @@ void Parser::parse(std::string firstWord, std::string fullLine, Restaurant &rest
             vector<Customer*> customerList;
             customerList = parseOpen(stringOfMatch);
             customAction = new OpenTable(stoi(smatch1[1].str()), customerList);
-
         }
 
         if(firstWord == "order"){
@@ -69,9 +67,9 @@ void Parser::parse(std::string firstWord, std::string fullLine, Restaurant &rest
             int tableId = stoi(smatch1[1]);
             customAction = new PrintTableStatus(tableId);
         }
-//        if(firstWord == "log"){
-//            customAction = new PrintActionsLog();
-//        }
+        if(firstWord == "log"){
+            customAction = new PrintActionsLog();
+        }
 //        if(firstWord == "backuo"){
 //            customAction = new BackupRestaurant();
 //        }
@@ -101,6 +99,7 @@ vector<Customer*> Parser::parseOpen(string match) {
         string strategy;
         getline(is2, name, ',');
         getline(is2,strategy, ',');
+        std::transform(strategy.begin(), strategy.end(), strategy.begin(), ::toupper);
         if (strategy == "ALC") {
             customer1 = new AlchoholicCustomer(name,i);
         } else if (strategy == "CHP") {

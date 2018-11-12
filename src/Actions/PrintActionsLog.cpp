@@ -7,13 +7,6 @@
 using namespace std;
 
 PrintActionsLog::PrintActionsLog() {};
-void PrintActionsLog::act(Restaurant &restaurant) {
-    for(BaseAction* i : restaurant.getActionsLog()){
-        cout<<i->toString()<endl;
-    }
-    complete();
-
-}
 string PrintActionsLog::toString() const {
     string toRet="log";
     if(this->getStatus()==COMPLETED)
@@ -21,4 +14,15 @@ string PrintActionsLog::toString() const {
     else
         toRet="You didn't activate act method.";
     return toRet;
+}
+
+/**
+ * Print Actions Log.
+ * @param restaurant
+ */
+void PrintActionsLog::act(Restaurant &restaurant) {
+    for(BaseAction * action :restaurant.getActionsLog()){
+        cout << action->toString() << endl;
+    }
+    complete();
 }
