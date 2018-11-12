@@ -22,7 +22,21 @@ public:
     void closeTable();
     int getBill();
     bool isOpen();
+
+    // Destructor
+    virtual ~Table();
+
+    // Copy Constructor
+    Table(const Table &other);
+
+    // Move Constructor
+    Table(Table &&other);
+
+    //Copy assignment operator
     Table & operator=(const Table &Table);
+
+    // Move Assignment
+    Table& operator=(Table &&other);
 
 //    bool operator==(const Table &rhs, Table &Table) const;
 
@@ -33,6 +47,8 @@ private:
     bool open;
     std::vector<Customer*> customersList;
     std::vector<OrderPair> orderList; //A list of pairs for each order in a table - (customer_id, Dish)
+    void clear();
+    void fillMeUp(vector<Customer*> customersListToCopy, std::vector<OrderPair> orderListToCopy);
 };
 
 

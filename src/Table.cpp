@@ -8,11 +8,61 @@ Table::Table(int t_capacity) {
     capacity = t_capacity;
     this->open = false;
 }
-//TODO:: change the copy assignment operator!
+
 Table &Table::operator=(const Table &Table) {
     if (this == &Table) {
         return *this;
+    } else {
+        clear();
+        fillMeUp(Table.customersList, Table.orderList);
+        capacity = Table.getCapacity();
+        open = Table.open;
     }
+}
+
+Table::~Table(){
+    clear();
+}
+
+//TODO:: moveConstructor!
+Table::Table(Table &&other){
+
+    for (int i = 0; i < other.customersList.size(); ++i) {
+        customersList[i]  = other.customersList[i];
+    }
+}
+
+void Table::fillMeUp(vector<Customer *> customersListToCopy, std::vector<OrderPair> orderListToCopy) {
+    for (Customer *customer : customersListToCopy) {
+        if (customer->getType() == "ALC") {
+            customersList.push_back(new AlchoholicCustomer(customer->getName(), customer->getId()));
+        } else if (customer->getType() == "CHP") {
+            customersList.push_back(new CheapCustomer(customer->getName(), customer->getId()));
+
+        } else if (customer->getType() == "SPC") {
+            customersList.push_back(new SpicyCustomer(customer->getName(), customer->getId()));
+
+        } else if (customer->getType() == "VEG") {
+            customersList.push_back(new VegetarianCustomer(customer->getName(), customer->getId()));
+        }
+    }
+    for (OrderPair orderPair : orderListToCopy){
+        orderList.push_back(orderPair);
+    }
+
+}
+
+void Table::clear() {
+    for(Customer* customer1 : customersList){
+        delete customer1;
+        customer1 = nullptr;
+    }
+}
+
+Table ::Table(const Table &other) {
+    capacity = other.getCapacity();
+    open = other.open;
+    fillMeUp(other.customersList, other.orderList);
 }
 
 bool Table::isOpen() {
