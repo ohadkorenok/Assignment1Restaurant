@@ -82,6 +82,10 @@ void Parser::parse(std::string firstWord, std::string fullLine, Restaurant &rest
         runAction(customAction, restaurant);
     }
 
+    string ohad = "ohad";
+
+
+
 }
 
 vector<Customer*> Parser::parseOpen(string match) {
@@ -96,10 +100,10 @@ vector<Customer*> Parser::parseOpen(string match) {
         Customer *customer1 = nullptr;
         string strategy;
         getline(is2, name, ',');
-        getline(is2, strategy, ',');
-//        if (strategy == "ALC") {
-//         }   customer1 = new AlchoholicCustomer(name,i);
-     if (strategy == "CHP") {
+        getline(is2,strategy, ',');
+        if (strategy == "ALC") {
+            customer1 = new AlchoholicCustomer(name,i);
+        } else if (strategy == "CHP") {
             customer1 = new CheapCustomer(name, i);
         } else if (strategy == "SPC") {
             customer1 = new SpicyCustomer(name, i);
@@ -125,5 +129,3 @@ vector<Customer*> Parser::parseOpen(string match) {
         actionsLog.push_back(action);
         cout << "<--------------started to run the action " + action->toString() + " --------------- > ";
     }
-
-
