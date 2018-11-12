@@ -27,7 +27,7 @@ vector<string> Restaurant::extractArgumentsFromConfig(const string &configFilePa
             if (i == 2) {
                 string text = line.substr(0, line.rfind('\r'));
                 while (getline(myFile, line)) {
-                    getline(myFile, line);
+//                    getline(myFile, line);
                     text += "\n" + line;
                 }
                 arguments[i] = text;
@@ -67,13 +67,13 @@ Restaurant::Restaurant(const std::string &configFilePath) {
  * @param menuArgument
  * @return
  */
-bool Restaurant::buildMenuFromArguments(string menuArgument) {
+void Restaurant::buildMenuFromArguments(string menuArgument) {
     vector<Dish> menu;
     string token;
     string dishToken;
     vector<string> dishArgument(3);
     istringstream is(menuArgument);
-    int j = 1;
+    int j = 0;
     while (getline(is, token, '\n')) {
         cout << token << endl;
         istringstream tokenStream(token);
@@ -85,21 +85,21 @@ bool Restaurant::buildMenuFromArguments(string menuArgument) {
         DishType dishType;
         if (dishArgument[1] == "ALC") {
             dishType = DishType::ALC;
-        } else if (dishArgument[1] == " BVG") {
+        } else if (dishArgument[1] == "BVG") {
             dishType = DishType::BVG;
         } else if (dishArgument[1] == "SPC") {
             dishType = DishType::SPC;
         } else if (dishArgument[1] == "VEG") {
             dishType = DishType::VEG;
         }
-        else return false;
-        if (dishType) {
+        else cout << "problem with building the menu, there is no such dish "+dishArgument[1] << endl;
+        string ohad  = "ohad";
+        if (dishType == DishType::ALC | dishType==DishType::VEG | DishType::SPC | DishType::BVG) {
             Dish dish = Dish(j, dishArgument[0], stoi(dishArgument[2]), dishType);
             this->menu.push_back(dish);
+            j++;
         }
     }
-
-    return true;
 }
 
 std::vector<Dish> &Restaurant::getMenu() {
@@ -140,7 +140,8 @@ void Restaurant::start() {
     while(true){
         getline(cin, line);
         string firstWord = line.substr(0,line.find(" "));
-        Parser::parse(firstWord, line, *this);
+        BaseAction* action = Parser::parse(firstWord, line, *this);
+        actionsLog.push_back(action);
     }
 }
 

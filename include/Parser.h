@@ -11,12 +11,12 @@
 #
 class Parser{
 public:
-static void parse(std::string firstWord, std::string restOfLine, Restaurant &restaurant);
+static BaseAction* parse(std::string firstWord, std::string restOfLine, Restaurant &restaurant);
 
 private:
 
     static vector<Customer*> parseOpen(string match);
-    static void runAction(BaseAction *action, Restaurant &restaurant);
+    static BaseAction* runAction(BaseAction *action, Restaurant &restaurant);
 };
 
 

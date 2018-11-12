@@ -9,7 +9,9 @@ using namespace std;
 PrintMenu::PrintMenu() {};
 void PrintMenu::act(Restaurant &restaurant) {
     for(Dish i : restaurant.getMenu())
-        cout<<i.getName()+" "+ to_string(i.getType())+" "+ to_string(i.getPrice())+"NIS"+"\n"<<endl;
+//        cout<<i.getName()+" "+ to_string(i.getType())+" "+ to_string(i.getPrice())+"NIS"+"\n"<<endl;
+        cout<<i.getName()+" "+ i.getTypeInString()+" "+ to_string(i.getPrice())+"NIS"+"\n"<<endl;
+
     complete();
 }
 string PrintMenu::toString() const {

@@ -5,38 +5,38 @@
 //TODO :: change default value of customerDish.
 #include "../../include/Customer.h"
 #include <limits>
-SpicyCustomer::SpicyCustomer(std::string name, int id) : Customer(name,id),_isOredered(false){};
+
+SpicyCustomer::SpicyCustomer(std::string name, int id) : Customer(name, id), _isOredered(false) {};
+//TODO :: fix the spicyCustomer order.
 std::vector<int> SpicyCustomer::order(const std::vector<Dish> &menu) {
-    std::vector<int> vecofOrder(1,-1);
-    if(!_isOredered){
-        int mostexpensivedishPrice=-1;
-        int mostexpID=std::numeric_limits<int>::max();
-        for(std::vector<Dish>::const_iterator it=menu.begin();it!=menu.end();++it){
-            if(it->getType()==SPC & it->getPrice()>mostexpensivedishPrice){
-                mostexpensivedishPrice=it->getPrice();
-                mostexpID=it->getId();
+    std::vector<int> vecofOrder(1, -1);
+    if (!_isOredered) {
+        int mostexpensivedishPrice = -1;
+        int mostexpID = std::numeric_limits<int>::max();
+        for (const Dish &dish: menu) {
+            if ((dish.getType() == SPC) && (dish.getPrice() > mostexpensivedishPrice)) {
+                if (dish.getId() < mostexpID)
+                    mostexpID = dish.getId();
             }
-            else if(it->getType()==SPC &it->getPrice()==mostexpensivedishPrice)
-                if(it->getId()<mostexpID)
-                    mostexpID=it->getId();
         }
-        vecofOrder[0]=mostexpID;
-    }
-    else{
-        int cheapestBVGprice=std::numeric_limits<int>::max();
-        int cheapestBVGid=std::numeric_limits<int>::max();
-        for(std::vector<Dish>::const_iterator it=menu.begin();it!=menu.end();++it){
-            if(it->getType()==BVG & it->getPrice()<cheapestBVGprice){
-                cheapestBVGprice=it->getPrice();
-                cheapestBVGid=it->getId();
-            }
-            else if(it->getType()==BVG & it->getPrice()==cheapestBVGprice)
-                if(it->getId()<cheapestBVGid)
-                    cheapestBVGid=it->getId();
+        vecofOrder[0] = mostexpID;
+    } else {
+        int cheapestBVGprice = std::numeric_limits<int>::max();
+        int cheapestBVGid = std::numeric_limits<int>::max();
+        for (const Dish &dish: menu) {
+            if (dish.getType() == BVG & dish.getPrice() < cheapestBVGprice) {
+                cheapestBVGprice = dish.getPrice();
+                cheapestBVGid = dish.getId();
+            } else if (dish.getType() == BVG & dish.getPrice() == cheapestBVGprice)
+                if (dish.getId() < cheapestBVGid)
+                    cheapestBVGid = dish.getId();
         }
-        vecofOrder[0]=cheapestBVGid;
+        vecofOrder[0] = cheapestBVGid;
     }
+
     return vecofOrder;
 };
-std::string SpicyCustomer::toString() const {return (std::string(getName())+","+std::to_string(getId()));};
-std::string SpicyCustomer::getType() const {return "spc";};
+
+std::string SpicyCustomer::toString() const { return (std::string(getName()) + "," + std::to_string(getId())); };
+
+std::string SpicyCustomer::getType() const { return "spc"; };

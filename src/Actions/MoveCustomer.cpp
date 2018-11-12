@@ -17,7 +17,7 @@ void MoveCustomer::act(Restaurant &restaurant) {
     if (t1 == nullptr | !t1->isOpen() | t2 == nullptr |
         !t2->isOpen() | t1->getCustomer(id) == nullptr | t2->getCustomers().size() >= t2->getCapacity()) {
         string err = "“Cannot move customer";
-        BaseAction::error(err);
+        error(err);
     } else {
         vector<OrderPair> copySrcOrders;
         vector<OrderPair> srcOrders = t1->getOrders();
@@ -34,6 +34,7 @@ void MoveCustomer::act(Restaurant &restaurant) {
         }
         t2->addCustomer(t1->getCustomer(id));
         t1->removeCustomer(id);
+
         complete();
     }
 }

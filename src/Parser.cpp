@@ -3,7 +3,8 @@
 #include "../include/Action.h"
 #include "regex"
 
-void Parser::parse(std::string firstWord, std::string fullLine, Restaurant &restaurant) {
+BaseAction* Parser::parse(std::string firstWord, std::string fullLine, Restaurant &restaurant) {
+    BaseAction* action = nullptr;
     regex openReg("open\\s*(\\d+)\\s*(.*)");
     regex orderReg("order\\s*(\\d+)");
     regex moveReg("move\\s*(\\d+)\\s*(\\d+)\\s*(\\d+)");
@@ -77,10 +78,10 @@ void Parser::parse(std::string firstWord, std::string fullLine, Restaurant &rest
 //        if(firstWord == "restore"){
 //            customAction = new RestoreResturant();
 //        }
-        runAction(customAction, restaurant);
+        action = runAction(customAction, restaurant);
     }
 
-    string ohad = "ohad";
+    return action;
 
 
 
@@ -108,6 +109,8 @@ vector<Customer*> Parser::parseOpen(string match) {
             customer1 = new SpicyCustomer(name, i);
         } else if (strategy == "VEG") {
             customer1 = new VegetarianCustomer(name, i);
+        } else{
+            cout << "unknown strategy for the customer "+name + ". the strategy given is: "+strategy+" . the customer will not be added to the table" << endl;
         }
         if(customer1!= nullptr){
             customerList.push_back(customer1);
@@ -122,9 +125,9 @@ vector<Customer*> Parser::parseOpen(string match) {
  * @param action
  * @param restaurant
  */
-    void Parser::runAction(BaseAction *action, Restaurant &restaurant) {
+    BaseAction* Parser::runAction(BaseAction *action, Restaurant &restaurant) {
         action->act(restaurant);
         vector<BaseAction *> actionsLog = restaurant.getActionsLog();
-        actionsLog.push_back(action);
         cout << "<--------------started to run the action " + action->toString() + " --------------- > ";
+        return action;
     }

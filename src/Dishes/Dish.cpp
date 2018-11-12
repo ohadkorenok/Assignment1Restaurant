@@ -13,3 +13,20 @@ int Dish::getPrice() const {
 DishType Dish::getType() const {
     return type;
 }
+
+string Dish::getTypeInString() const {
+    string returnString;
+    if(type == ALC){
+        returnString = "ALC";
+    }
+    if(type == SPC){
+        returnString = "SPC";
+    }
+    if(type == BVG){
+        returnString = "BVG";
+    }
+    if(type == VEG){
+        returnString = "VEG";
+    }
+    return returnString;
+}

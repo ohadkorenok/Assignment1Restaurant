@@ -20,15 +20,15 @@ Table &Table::operator=(const Table &Table) {
     }
 }
 
-Table::~Table(){
+Table::~Table() {
     clear();
 }
 
 //TODO:: moveConstructor!
-Table::Table(Table &&other){
+Table::Table(Table &&other) {
 
     for (int i = 0; i < other.customersList.size(); ++i) {
-        customersList[i]  = other.customersList[i];
+        customersList[i] = other.customersList[i];
     }
 }
 
@@ -46,20 +46,20 @@ void Table::fillMeUp(vector<Customer *> customersListToCopy, std::vector<OrderPa
             customersList.push_back(new VegetarianCustomer(customer->getName(), customer->getId()));
         }
     }
-    for (OrderPair orderPair : orderListToCopy){
+    for (OrderPair orderPair : orderListToCopy) {
         orderList.push_back(orderPair);
     }
 
 }
 
 void Table::clear() {
-    for(Customer* customer1 : customersList){
+    for (Customer *customer1 : customersList) {
         delete customer1;
         customer1 = nullptr;
     }
 }
 
-Table ::Table(const Table &other) {
+Table::Table(const Table &other) {
     capacity = other.getCapacity();
     open = other.open;
     fillMeUp(other.customersList, other.orderList);
@@ -85,6 +85,9 @@ void Table::removeCustomer(int id) {
             customersList.erase(customersList.begin() + i);
         }
     }
+    if (customersList.empty()) {
+        open = false;
+    }
 }
 
 /**
@@ -103,6 +106,7 @@ Customer *Table::getCustomer(int id) {
     return customer;
 
 }
+
 std::vector<Customer *> &Table::getCustomers() {
     return customersList;
 }
@@ -116,13 +120,13 @@ std::vector<OrderPair> &Table::getOrders() {
  * @param menu gets menu
  */
 void Table::order(const std::vector<Dish> &menu) {
-    if(!open){
+    if (!open) {
         std::cout << "table is not open" << endl;
     }
     vector<int> customerOrder;
     for (int i = 0; i < customersList.size(); ++i) {
-        for (int customerOrder1 :  customersList[i]->order(menu)){
-            if(customerOrder1 != -1) {
+        for (int customerOrder1 :  customersList[i]->order(menu)) {
+            if (customerOrder1 != -1) {
                 orderList.push_back(OrderPair(customersList[i]->getId(), menu[customerOrder1]));
             }
         }
@@ -142,7 +146,7 @@ void Table::closeTable() {
 
 int Table::getBill() {
     int sum = 0;
-    for(OrderPair const &orderPair1 : orderList){
-        sum+=orderPair1.second.getPrice();
+    for (OrderPair const &orderPair1 : orderList) {
+        sum += orderPair1.second.getPrice();
     }
 }
