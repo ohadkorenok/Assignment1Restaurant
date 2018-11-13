@@ -64,7 +64,6 @@ private:
     int findCheapestNerase(vector<AlcoholPair> &alc);
     std::vector<AlcoholPair> alcohol;
     bool _firstRun;
-    int orders;
 };
 
 

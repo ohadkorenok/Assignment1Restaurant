@@ -15,11 +15,14 @@ std::vector<int> SpicyCustomer::order(const std::vector<Dish> &menu) {
         int mostexpID = std::numeric_limits<int>::max();
         for (const Dish &dish: menu) {
             if ((dish.getType() == SPC) && (dish.getPrice() > mostexpensivedishPrice)) {
-                if (dish.getId() < mostexpID)
+                if (dish.getPrice() > mostexpensivedishPrice) {
                     mostexpID = dish.getId();
+                    mostexpensivedishPrice=dish.getPrice();
+                }
             }
         }
-        vecofOrder[0] = mostexpID;
+        if(mostexpID<std::numeric_limits<int>::max())
+            vecofOrder[0] = mostexpID;
         _isOredered = true;
     } else {
         int cheapestBVGprice = std::numeric_limits<int>::max();
@@ -32,7 +35,8 @@ std::vector<int> SpicyCustomer::order(const std::vector<Dish> &menu) {
                 if (dish.getId() < cheapestBVGid)
                     cheapestBVGid = dish.getId();
         }
-        vecofOrder[0] = cheapestBVGid;
+        if(cheapestBVGid<std::numeric_limits<int>::max())
+            vecofOrder[0] = cheapestBVGid;
     }
 
     return vecofOrder;

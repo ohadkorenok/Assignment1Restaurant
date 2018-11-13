@@ -26,3 +26,7 @@ void PrintActionsLog::act(Restaurant &restaurant) {
     }
     complete();
 }
+BaseAction* PrintActionsLog::clone() {
+    BaseAction* toRet=new PrintActionsLog();
+    return toRet;
+}

@@ -44,3 +44,19 @@ string OpenTable::toString() const {
         toRet = "You didn't activate act method. status is PENDING";
     return toRet;
 }
+
+BaseAction* OpenTable::clone() {
+    vector<Customer*> clonedCustomers;
+    for(Customer* customer: customers){
+        if(customer->getType()=="ALC")
+            clonedCustomers.push_back(new AlchoholicCustomer(customer->getName(),customer->getId()));
+        else if(customer->getType()=="VEG")
+            clonedCustomers.push_back(new VegetarianCustomer(customer->getName(),customer->getId()));
+        else if(customer->getType()=="CHP")
+            clonedCustomers.push_back(new CheapCustomer(customer->getName(),customer->getId()));
+        else if(customer->getType()=="SPC")
+            clonedCustomers.push_back(new SpicyCustomer(customer->getName(),customer->getId()));
+    }
+    BaseAction* toRet= new OpenTable(tableId,clonedCustomers);
+    return toRet;
+}

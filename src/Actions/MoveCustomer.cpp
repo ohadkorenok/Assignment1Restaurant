@@ -64,3 +64,7 @@ string MoveCustomer::toString() const {
         toRet = "You didn't activate act method.";
     return toRet;
 }
+BaseAction* MoveCustomer::clone() {
+    BaseAction* toRet=new MoveCustomer(srcTable,dstTable,id);
+    return toRet;
+}

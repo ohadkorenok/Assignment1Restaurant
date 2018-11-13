@@ -9,7 +9,7 @@
 using namespace std;
 
 //TODO :: change default value of customerDish.
-AlchoholicCustomer::AlchoholicCustomer(std::string name, int id) : Customer(name,id),_firstRun(true),orders(0){};
+AlchoholicCustomer::AlchoholicCustomer(std::string name, int id) : Customer(name,id),_firstRun(true){};
 vector<int> AlchoholicCustomer::order(const std::vector<Dish> &menu) {
     vector<int> vecofOrder(1,-1);
     if(_firstRun){
@@ -20,16 +20,13 @@ vector<int> AlchoholicCustomer::order(const std::vector<Dish> &menu) {
             }
         }
         vecofOrder[0]=findCheapestNerase(alcohol);
-        orders++;
+        _firstRun=false;
     }
     else{
-        if(orders>(alcohol.size()-1))
+        if(alcohol.size()==0)
             vecofOrder[0]=-1;
-        else {
+        else
             vecofOrder[0] = findCheapestNerase(alcohol);
-            if (orders < alcohol.size())
-                orders++;
-        }
     }
     return vecofOrder;
 }
@@ -37,10 +34,10 @@ vector<int> AlchoholicCustomer::order(const std::vector<Dish> &menu) {
  *
  */
 int AlchoholicCustomer::findCheapestNerase(vector<AlcoholPair> &alc) {
-    int max=-1;int index=0;int i=0;
+    int minPrice=std::numeric_limits<int>::max();int index=0;int i=0;
     for(AlcoholPair pair: alc){
-        if(pair.second > max){
-            max=pair.second;
+        if(pair.second < minPrice){
+            minPrice=pair.second;
             index=i;
         }
         i++;

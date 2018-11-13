@@ -34,3 +34,8 @@ string Order::toString() const {
         toRet = "You didn't activate act method.";
     return toRet;
 }
+
+BaseAction* Order::clone() {
+    BaseAction* toRet=new Order(tableId);
+    return toRet;
+}

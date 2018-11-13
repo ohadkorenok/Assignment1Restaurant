@@ -22,3 +22,7 @@ string PrintMenu::toString() const {
         toRet="You didn't activate act method.";
     return toRet;
 };
+BaseAction* PrintMenu::clone() {
+    BaseAction* toRet=new PrintMenu();
+    return toRet;
+}
