@@ -31,3 +31,7 @@ string PrintTableStatus::toString() const {
         toRet="You didn't activate act method.";
     return toRet;
 }
+BaseAction* PrintTableStatus::clone() {
+    BaseAction* toRet=new PrintTableStatus(tableId);
+    return toRet;
+}

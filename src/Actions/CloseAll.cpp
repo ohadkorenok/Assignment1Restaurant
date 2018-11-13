@@ -20,3 +20,7 @@ void CloseAll::act(Restaurant &restaurant) {
 string CloseAll::toString() const {
     string toRet="closeall";
     return toRet;}
+BaseAction* CloseAll::clone() {
+    BaseAction* toRet=new CloseAll();
+    return toRet;
+}

@@ -30,3 +30,7 @@ string Close::toString() const {
         toRet="You didn't activate act method.";
     return toRet;
 }
+BaseAction* Close::clone() {
+    BaseAction* toRet=new Close(tableId);
+    return toRet;
+}
