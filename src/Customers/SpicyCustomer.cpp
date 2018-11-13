@@ -20,6 +20,7 @@ std::vector<int> SpicyCustomer::order(const std::vector<Dish> &menu) {
             }
         }
         vecofOrder[0] = mostexpID;
+        _isOredered = true;
     } else {
         int cheapestBVGprice = std::numeric_limits<int>::max();
         int cheapestBVGid = std::numeric_limits<int>::max();

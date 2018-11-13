@@ -2,7 +2,7 @@
 // Created by ohadkoren on 08/11/18.
 //
 
-//TODO :: change default value of customerDish.
+//TODO :: Problem with vegeterian customer.
 #include <limits>
 #include "../../include/Customer.h"
 VegetarianCustomer::VegetarianCustomer(std::string name, int id) : Customer(name, id){}

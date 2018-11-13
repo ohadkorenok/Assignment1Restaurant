@@ -10,6 +10,7 @@ using namespace std;
 Order::Order(int id) : BaseAction::BaseAction(), tableId(id) {};
 
 void Order::act(Restaurant &restaurant) {
+    vector<OrderPair> lastRoundOrders;
     Table *t1 = restaurant.getTable(tableId);
     if (t1 == nullptr | !t1->isOpen()) {
         string err = "Table does not exist or is already open";

@@ -25,11 +25,22 @@ Table::~Table() {
 }
 
 //TODO:: moveConstructor!
-Table::Table(Table &&other) {
-
+Table::Table(Table &&other):capacity(other.capacity), open(other.open), orderList(other.orderList) {
     for (int i = 0; i < other.customersList.size(); ++i) {
         customersList[i] = other.customersList[i];
     }
+    other.customersList.clear();
+    orderList.clear();
+}
+
+Table& Table::operator=(Table &&other) {
+    open = other.open;
+    orderList = other.orderList;
+    for (int i = 0; i < other.customersList.size(); ++i) {
+        customersList[i] = other.customersList[i];
+    }
+    other.customersList.clear();
+    other.orderList.clear();
 }
 
 void Table::fillMeUp(vector<Customer *> customersListToCopy, std::vector<OrderPair> orderListToCopy) {
@@ -124,6 +135,7 @@ void Table::order(const std::vector<Dish> &menu) {
         std::cout << "table is not open" << endl;
     }
     vector<int> customerOrder;
+    orderList.clear();
     for (int i = 0; i < customersList.size(); ++i) {
         for (int customerOrder1 :  customersList[i]->order(menu)) {
             if (customerOrder1 != -1) {
