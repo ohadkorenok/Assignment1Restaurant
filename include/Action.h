@@ -4,6 +4,8 @@
 #include <string>
 #include <iostream>
 #include "Customer.h"
+#include "../../include/Restaurant.h"
+extern Restaurant* backup;
 
 enum ActionStatus{
     PENDING, COMPLETED, ERROR
