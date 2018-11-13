@@ -50,6 +50,7 @@ Restaurant::Restaurant() {}
  */
 Restaurant::Restaurant(const std::string &configFilePath) {
     this->open = true;
+    this->nextCustomerId = 0;
     std::string pathname = __BASE_FILE__;
     string const configurationFile = pathname.substr(0, pathname.size() - 19) + "/" + configFilePath;
     vector<string> arguments;
@@ -252,7 +253,10 @@ void Restaurant::stealFromOther(vector<Table *> otherTables, vector<Dish> otherM
     }
     open = otherOpen;
 }
-
+int Restaurant::getNextCustomerId() {
+    return nextCustomerId;
+}
+void Restaurant::setNextCustomerId(int newId) {nextCustomerId = newId;}
 
 
 

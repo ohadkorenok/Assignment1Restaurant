@@ -14,8 +14,7 @@ public:
 static BaseAction* parse(std::string firstWord, std::string restOfLine, Restaurant &restaurant);
 
 private:
-
-    static vector<Customer*> parseOpen(string match);
+    static vector<Customer*> parseOpen(string match, Restaurant &restaurant);
     static BaseAction* runAction(BaseAction *action, Restaurant &restaurant);
 };
 
