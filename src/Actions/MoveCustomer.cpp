@@ -32,19 +32,35 @@ void MoveCustomer::act(Restaurant &restaurant) {
                 srcOrders.push_back(copySrcOrders[j]); //TODO ::check what the fuck is going on with the copy.
             }
         }
-        t2->addCustomer(t1->getCustomer(id));
+        int newId = t2->getCustomers().size();
+        Customer *customer = t1->getCustomer(id);
+        Customer *customerToAdd;
+        if (customer->getType() == "ALC") {
+            customerToAdd = new AlchoholicCustomer(customer->getName(), newId);
+        }
+        if (customer->getType() == "SPC") {
+            customerToAdd = new SpicyCustomer(customer->getName(), newId);
+        }
+        if (customer->getType() == "CHP") {
+            customerToAdd = new CheapCustomer(customer->getName(), newId);
+        }
+        if (customer->getType() == "VEG") {
+            customerToAdd = new VegetarianCustomer(customer->getName(), newId);
+        }
+        t2->addCustomer(customerToAdd);
         t1->removeCustomer(id);
 
         complete();
     }
 }
+
 string MoveCustomer::toString() const {
-    string toRet="move "+to_string(srcTable)+" "+to_string(dstTable)+" "+to_string(id);
-    if(this->getStatus()==COMPLETED)
-        toRet+=" COMPLETED";
-    else if(this->getStatus()==ERROR)
-        toRet+=" ERROR:"+this->getErrorMsg();
+    string toRet = "move " + to_string(srcTable) + " " + to_string(dstTable) + " " + to_string(id);
+    if (this->getStatus() == COMPLETED)
+        toRet += " COMPLETED";
+    else if (this->getStatus() == ERROR)
+        toRet += " ERROR:" + this->getErrorMsg();
     else
-        toRet="You didn't activate act method.";
+        toRet = "You didn't activate act method.";
     return toRet;
 }

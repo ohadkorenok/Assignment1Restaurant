@@ -23,6 +23,7 @@ Table &Table::operator=(const Table &Table) {
         capacity = Table.getCapacity();
         open = Table.open;
     }
+    return *this;
 }
 
 /**
@@ -61,6 +62,7 @@ Table& Table::operator=(Table &&other) {
         other.customersList[i] = nullptr;
     }
     other.orderList.clear();
+    return *this;
 }
 
 void Table::fillMeUp(vector<Customer *> customersListToCopy, std::vector<OrderPair> orderListToCopy) {

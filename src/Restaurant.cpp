@@ -21,7 +21,7 @@ vector<string> Restaurant::extractArgumentsFromConfig(const string &configFilePa
     if (myFile.is_open()) {
         while (std::getline(myFile, line) && i <= 2) {
             std::istringstream iss(line);
-            while (line[0] == '#' || line == "\r" || line.empty()|| line == "\n") {
+            while (line[0] == '#' || line == "\r" || line.empty() || line == "\n") {
                 std::getline(myFile, line);
             }
             if (i == 2) {
@@ -91,10 +91,9 @@ void Restaurant::buildMenuFromArguments(string menuArgument) {
             dishType = DishType::SPC;
         } else if (dishArgument[1] == "VEG") {
             dishType = DishType::VEG;
-        }
-        else cout << "problem with building the menu, there is no such dish "+dishArgument[1] << endl;
-        string ohad  = "ohad";
-        if (dishType == DishType::ALC | dishType==DishType::VEG | DishType::SPC | DishType::BVG) {
+        } else cout << "problem with building the menu, there is no such dish " + dishArgument[1] << endl;
+        string ohad = "ohad";
+        if (dishType == DishType::ALC | dishType == DishType::VEG | DishType::SPC | DishType::BVG) {
             Dish dish = Dish(j, dishArgument[0], stoi(dishArgument[2]), dishType);
             this->menu.push_back(dish);
             j++;
@@ -135,12 +134,12 @@ Table *Restaurant::getTable(int ind) {
 }
 
 void Restaurant::start() {
-    cout << "restaurant is now open! "<< endl;
+    cout << "restaurant is now open! " << endl;
     string line;
-    while(true){
+    while (true) {
         getline(cin, line);
-        string firstWord = line.substr(0,line.find(" "));
-        BaseAction* action = Parser::parse(firstWord, line, *this);
+        string firstWord = line.substr(0, line.find(" "));
+        BaseAction *action = Parser::parse(firstWord, line, *this);
         actionsLog.push_back(action);
     }
 }
@@ -148,6 +147,114 @@ void Restaurant::start() {
 void Restaurant::closeRestaurant() {
     this->open = false;
 }
+
+/**
+ * Move constructor
+ * @param other
+ */
+Restaurant::Restaurant(Restaurant &&other) {
+    if (this != &other) {
+        stealFromOther(other.tables, other.menu, other.actionsLog, other.open);
+    }
+}
+
+/**
+ * Destructor.
+ */
+Restaurant::~Restaurant() {
+    clear();
+}
+
+/**
+ * Copy constructor.
+ * @param other
+ */
+Restaurant::Restaurant(const Restaurant &other) {
+    fillMeUp(other.tables, other.menu, other.actionsLog, other.open);
+}
+
+/**
+ * Move assignment operator
+ * @param other
+ * @return
+ */
+Restaurant &Restaurant::operator=(Restaurant &&other) {
+    if (this == &other) {
+        return *this;
+    }
+    stealFromOther(other.tables, other.menu, other.actionsLog, other.open);
+    return *this;
+}
+
+Restaurant &Restaurant::operator=(const Restaurant &Restaurant) {
+    if (this == &Restaurant) {
+        return *this;
+    }
+    fillMeUp(Restaurant.tables, Restaurant.menu, Restaurant.actionsLog, Restaurant.open);
+    return *this;
+}
+
+void Restaurant::clear() {
+    for (int i = 0; i < actionsLog.size(); ++i) {
+        delete actionsLog[i];
+        actionsLog[i] = nullptr;
+    }
+    for (int j = 0; j < tables.size(); ++j) {
+        delete tables[j];
+        tables[j] = nullptr;
+    }
+}
+
+/**
+ * Helper method.
+ * @param otherTables
+ * @param otherMenu
+ * @param otherActionsLog
+ * @param otherOpen
+ */
+void Restaurant::fillMeUp(vector<Table *> otherTables, vector<Dish> otherMenu, vector<BaseAction *> otherActionsLog,
+                          bool otherOpen) {
+    for (int i = 0; i < otherTables.size(); ++i) {
+        this->tables[i] = new Table(*otherTables[i]);
+    }
+    for (int j = 0; j < otherActionsLog.size(); ++j) {
+        this->actionsLog[j] = otherActionsLog[j]->clone();
+    }
+    menu.clear();
+    for (int k = 0; k < otherMenu.size(); ++k) {
+        menu.push_back(otherMenu[k]);
+    }
+    open = otherOpen;
+}
+
+void Restaurant::stealFromOther(vector<Table *> otherTables, vector<Dish> otherMenu,
+                                vector<BaseAction *> otherActionsLog, bool otherOpen) {
+
+    for (int i = 0; i < otherTables.size(); ++i) {
+        Table* temp = tables[i];
+        this->tables[i] = otherTables[i];
+        otherTables[i] = nullptr;
+        delete temp;
+    }
+
+    menu.clear();
+    for (int j = 0; j < otherMenu.size(); ++j) {
+        menu.push_back(otherMenu[j]);
+    }
+    otherMenu.clear();
+
+    for (int k = 0; k < otherActionsLog.size(); ++k) {
+        BaseAction* temp;
+        temp = actionsLog[k];
+        actionsLog[k] = otherActionsLog[k];
+        otherActionsLog[k] = nullptr;
+        delete temp;
+    }
+    open = otherOpen;
+}
+
+
+
 
 
 
