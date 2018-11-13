@@ -11,3 +11,5 @@
 #tables description
 6,4,4,14,10,10
 #Menu
+Salad,VEG,50
+Water,BVG,60

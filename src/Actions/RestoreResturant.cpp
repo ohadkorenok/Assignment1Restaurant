@@ -4,6 +4,7 @@
 #include "../../include/Action.h"
 #include "../../include/Table.h"
 #include "../../include/Restaurant.h"
+extern Restaurant* backup;
 
 RestoreResturant::RestoreResturant() {};
 void RestoreResturant::act(Restaurant &restaurant) {
@@ -21,7 +22,7 @@ std::string RestoreResturant::toString() const {
         toRet="You didn't activate act method.";
     return toRet;
 }
-BaseAction* BackupRestaurant::clone() {
+BaseAction* RestoreResturant::clone() {
     BaseAction* toRet=new RestoreResturant();
     return toRet;
 }
