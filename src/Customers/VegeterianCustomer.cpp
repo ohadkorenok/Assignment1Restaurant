@@ -13,9 +13,11 @@ std::vector<int> VegetarianCustomer::order(const std::vector<Dish> &menu) {
     int maxBVGprice=-1;
     for(std::vector<Dish>::const_iterator it=menu.begin();it!=menu.end();++it){
         if(it->getType()==VEG & it->getId()<smallestID)
-            smallestID=getId();
-        if(it->getType()==BVG & it->getPrice()>=maxBVGprice & it->getId()<expensiveBVGid)
-            expensiveBVGid=it->getId();
+            smallestID=it->getId();
+        if(it->getType()==BVG & it->getPrice()>maxBVGprice) {
+            maxBVGprice=it->getPrice();
+            expensiveBVGid = it->getId();
+        }
     }
     if(smallestID<numeric_limits<int>::max() & expensiveBVGid<numeric_limits<int>::max()) {
         vecofOrder[0]=smallestID;
