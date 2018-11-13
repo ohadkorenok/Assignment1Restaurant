@@ -9,6 +9,11 @@ Table::Table(int t_capacity) {
     this->open = false;
 }
 
+/**
+ * Copy assignment operator.
+ * @param Table
+ * @return
+ */
 Table &Table::operator=(const Table &Table) {
     if (this == &Table) {
         return *this;
@@ -20,26 +25,37 @@ Table &Table::operator=(const Table &Table) {
     }
 }
 
+/**
+ * Destructor.
+ */
 Table::~Table() {
     clear();
 }
 
-//TODO:: moveConstructor!
+/**
+ * Move Constructor.
+ * @param other
+ */
 Table::Table(Table &&other):capacity(other.capacity), open(other.open), orderList(other.orderList) {
     for (int i = 0; i < other.customersList.size(); ++i) {
         customersList[i] = other.customersList[i];
     }
-    other.customersList.clear();
-    orderList.clear();
+    other.clear();
+    other.orderList.clear();
 }
 
+/**
+ * Move Assignment Operator.
+ * @param other
+ * @return
+ */
 Table& Table::operator=(Table &&other) {
     open = other.open;
     orderList = other.orderList;
     for (int i = 0; i < other.customersList.size(); ++i) {
         customersList[i] = other.customersList[i];
     }
-    other.customersList.clear();
+    other.clear();
     other.orderList.clear();
 }
 
@@ -70,6 +86,10 @@ void Table::clear() {
     }
 }
 
+/**
+ * Copy Constructor.
+ * @param other
+ */
 Table::Table(const Table &other) {
     capacity = other.getCapacity();
     open = other.open;
@@ -153,7 +173,7 @@ void Table::openTable() {
 void Table::closeTable() {
     open = false;
     orderList.clear();
-    customersList.clear();
+    clear();
 }
 
 int Table::getBill() {
