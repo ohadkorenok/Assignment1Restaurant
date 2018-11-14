@@ -22,6 +22,7 @@ public:
     virtual void act(Restaurant& restaurant)=0;
     virtual std::string toString() const=0;
     virtual BaseAction* clone()=0;
+    virtual ~BaseAction();
 protected:
     void complete();
     void error(std::string errorMsg);
@@ -39,6 +40,10 @@ public:
     void act(Restaurant &restaurant);
     std::string toString() const;
     BaseAction* clone();
+    ~OpenTable() ;
+
+	virtual ~OpenTable();
+
 private:
 	const int tableId;
 	std::vector<Customer *> customers;
@@ -107,7 +112,8 @@ private:
 class PrintTableStatus : public BaseAction {
 public:
     PrintTableStatus(int id);
-    void act(Restaurant &restaurant);
+	PrintTableStatus(int id, ActionStatus actionStatus, string errorMsg);
+	void act(Restaurant &restaurant);
     std::string toString() const;
 	BaseAction* clone();
 private:
@@ -118,7 +124,7 @@ private:
 class PrintActionsLog : public BaseAction {
 public:
     PrintActionsLog();
-    PrintActionsLog(ActionStatus actionStatus, string erorMsg);
+    PrintActionsLog(ActionStatus actionStatus, string errorMsg);
     void act(Restaurant &restaurant);
     std::string toString() const;
 	BaseAction* clone();
@@ -129,7 +135,8 @@ private:
 class BackupRestaurant : public BaseAction {
 public:
     BackupRestaurant();
-    void act(Restaurant &restaurant);
+	BackupRestaurant(ActionStatus actionStatus);
+	void act(Restaurant &restaurant);
     std::string toString() const;
 	BaseAction* clone();
 private:
@@ -139,7 +146,8 @@ private:
 class RestoreResturant : public BaseAction {
 public:
     RestoreResturant();
-    void act(Restaurant &restaurant);
+	RestoreResturant(ActionStatus actionStatus);
+	void act(Restaurant &restaurant);
     std::string toString() const;
 	BaseAction* clone();
 

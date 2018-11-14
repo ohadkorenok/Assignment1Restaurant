@@ -7,6 +7,13 @@
 using namespace std;
 
 PrintTableStatus::PrintTableStatus(int id): tableId(id) {};
+PrintTableStatus::PrintTableStatus(int id, ActionStatus actionStatus, string errorMsg): tableId(id) {
+    if(actionStatus == ActionStatus::COMPLETED)
+        this->complete();
+    if(actionStatus == ActionStatus::ERROR)
+        this->error(errorMsg);
+};
+
 void PrintTableStatus::act(Restaurant &restaurant) {
     Table* t1=restaurant.getTable(tableId);
     if(!t1->isOpen())
@@ -32,6 +39,6 @@ string PrintTableStatus::toString() const {
     return toRet;
 }
 BaseAction* PrintTableStatus::clone() {
-    BaseAction* toRet=new PrintTableStatus(tableId);
+    BaseAction* toRet=new PrintTableStatus(tableId, this->getStatus(), this->getErrorMsg());
     return toRet;
 }

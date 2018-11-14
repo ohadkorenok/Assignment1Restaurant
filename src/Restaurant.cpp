@@ -150,6 +150,14 @@ void Restaurant::closeRestaurant() {
 }
 
 /**
+ * Copy constructor.
+ * @param other
+ */
+Restaurant::Restaurant(const Restaurant &other) {
+    fillMeUp(other.tables, other.menu, other.actionsLog, other.open);
+}
+
+/**
  * Move constructor
  * @param other
  */
@@ -166,13 +174,6 @@ Restaurant::~Restaurant() {
     clear();
 }
 
-/**
- * Copy constructor.
- * @param other
- */
-Restaurant::Restaurant(const Restaurant &other) {
-    fillMeUp(other.tables, other.menu, other.actionsLog, other.open);
-}
 
 /**
  * Move assignment operator
@@ -187,10 +188,25 @@ Restaurant &Restaurant::operator=(Restaurant &&other) {
     return *this;
 }
 
+/**
+ * Copy assignment operator
+ * @param Restaurant
+ * @return
+ */
 Restaurant &Restaurant::operator=(const Restaurant &Restaurant) {
     if (this == &Restaurant) {
         return *this;
     }
+
+    for (int l = 0; l < this->tables.size(); ++l) {
+        delete tables[l];
+        tables[l] = nullptr;
+    }
+    for (int m = 0; m < actionsLog.size(); ++m) {
+        delete actionsLog[m];
+        actionsLog[m] = nullptr;
+    }
+
     fillMeUp(Restaurant.tables, Restaurant.menu, Restaurant.actionsLog, Restaurant.open);
     return *this;
 }
@@ -215,17 +231,12 @@ void Restaurant::clear() {
  */
 void Restaurant::fillMeUp(vector<Table *> otherTables, vector<Dish> otherMenu, vector<BaseAction *> otherActionsLog,
                           bool otherOpen) {
-    for (int l = 0; l < this->tables.size(); ++l) {
-        delete tables[l];
-        tables[l] = nullptr;
-    }
-    tables.clear();
     for (int i = 0; i < otherTables.size(); ++i) {
         tables.push_back(new Table(*otherTables[i]));
     }
     for (int j = 0; j < otherActionsLog.size(); ++j) {
 //        this->actionsLog[j] = otherActionsLog[j]->clone();
-        BaseAction* action = otherActionsLog[j]->clone();
+        BaseAction *action = otherActionsLog[j]->clone();
         string ohad = " ohad";
     }
     menu.clear();
@@ -239,7 +250,7 @@ void Restaurant::stealFromOther(vector<Table *> otherTables, vector<Dish> otherM
                                 vector<BaseAction *> otherActionsLog, bool otherOpen) {
 
     for (int i = 0; i < otherTables.size(); ++i) {
-        Table* temp = tables[i];
+        Table *temp = tables[i];
         this->tables[i] = otherTables[i];
         otherTables[i] = nullptr;
         delete temp;
@@ -252,7 +263,7 @@ void Restaurant::stealFromOther(vector<Table *> otherTables, vector<Dish> otherM
     otherMenu.clear();
 
     for (int k = 0; k < otherActionsLog.size(); ++k) {
-        BaseAction* temp;
+        BaseAction *temp;
         temp = actionsLog[k];
         actionsLog[k] = otherActionsLog[k];
         otherActionsLog[k] = nullptr;
@@ -260,12 +271,11 @@ void Restaurant::stealFromOther(vector<Table *> otherTables, vector<Dish> otherM
     }
     open = otherOpen;
 }
+
 int Restaurant::getNextCustomerId() {
     return nextCustomerId;
 }
-void Restaurant::setNextCustomerId(int newId) {nextCustomerId = newId;}
 
-
-
+void Restaurant::setNextCustomerId(int newId) { nextCustomerId = newId; }
 
 

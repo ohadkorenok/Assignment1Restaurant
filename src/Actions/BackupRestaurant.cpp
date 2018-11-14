@@ -6,7 +6,11 @@
 #include "../../include/Restaurant.h"
 extern Restaurant* backup;
 
-BackupRestaurant::BackupRestaurant() {};
+BackupRestaurant::BackupRestaurant(){};
+BackupRestaurant::BackupRestaurant(ActionStatus actionStatus){
+    if(actionStatus == COMPLETED)
+        complete();
+};
 void BackupRestaurant::act(Restaurant &restaurant) {
     backup=new Restaurant(restaurant);
     complete();
@@ -22,7 +26,7 @@ std::string BackupRestaurant::toString() const {
     return toRet;
 }
 BaseAction* BackupRestaurant::clone() {
-    BaseAction* toRet=new BackupRestaurant();
+    BaseAction* toRet=new BackupRestaurant(this->getStatus());
     return toRet;
 }
 

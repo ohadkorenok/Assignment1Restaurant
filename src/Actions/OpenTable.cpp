@@ -12,11 +12,12 @@ OpenTable::OpenTable(int id, std::vector<Customer *> &customersList)
 
 OpenTable::OpenTable(int id, std::vector<Customer *> &customersList, ActionStatus actionStatus, string errorMsg)
         : BaseAction::BaseAction(), tableId(id), customers(customersList) {
-    if(actionStatus == ActionStatus::COMPLETED)
+    if (actionStatus == ActionStatus::COMPLETED)
         this->complete();
-    if(actionStatus == ActionStatus::ERROR)
+    if (actionStatus == ActionStatus::ERROR)
         this->error(errorMsg);
 };
+
 void OpenTable::act(Restaurant &restaurant) {
     Table *t1 = restaurant.getTable(tableId);
     if (t1 == nullptr | t1->isOpen()) {
@@ -26,11 +27,20 @@ void OpenTable::act(Restaurant &restaurant) {
         error("The desired table is not big enough for all of the customers, could not open the table!  ");
     } else if (customers.empty()) {
         error("no suitable customers for this table! The table will not be opened. ");
-    }
-    else{
+    } else {
         t1->openTable();
-        for (std::vector<Customer *>::const_iterator it = customers.begin(); it != customers.end(); ++it) {
-            t1->addCustomer(*it);
+        for (int i = 0; i < customers.size(); ++i) {
+            Customer *customer1;
+            if (customers[i]->getType() == "ALC") {
+                customer1 = new AlchoholicCustomer(customers[i]->getName(), customers[i]->getId());
+            } else if (customers[i]->getType() == "CHP") {
+                customer1 = new CheapCustomer(customers[i]->getName(), customers[i]->getId());
+            } else if (customers[i]->getType() == "VEG") {
+                customer1 = new VegetarianCustomer(customers[i]->getName(), customers[i]->getId());
+            } else if (customers[i]->getType() == "SPC") {
+                customer1 = new SpicyCustomer(customers[i]->getName(), customers[i]->getId());
+            }
+            t1->addCustomer(customer1);
             complete();
         }
     }
@@ -52,18 +62,26 @@ string OpenTable::toString() const {
     return toRet;
 }
 
-BaseAction* OpenTable::clone() {
-    vector<Customer*> clonedCustomers;
-    for(Customer* customer: customers){
-        if(customer->getType()=="ALC")
-            clonedCustomers.push_back(new AlchoholicCustomer(customer->getName(),customer->getId()));
-        else if(customer->getType()=="VEG")
-            clonedCustomers.push_back(new VegetarianCustomer(customer->getName(),customer->getId()));
-        else if(customer->getType()=="CHP")
-            clonedCustomers.push_back(new CheapCustomer(customer->getName(),customer->getId()));
-        else if(customer->getType()=="SPC")
-            clonedCustomers.push_back(new SpicyCustomer(customer->getName(),customer->getId()));
+BaseAction *OpenTable::clone() {
+    vector<Customer *> clonedCustomers;
+    for (Customer *customer: customers) {
+        if (customer->getType() == "ALC")
+            clonedCustomers.push_back(new AlchoholicCustomer(customer->getName(), customer->getId()));
+        else if (customer->getType() == "VEG")
+            clonedCustomers.push_back(new VegetarianCustomer(customer->getName(), customer->getId()));
+        else if (customer->getType() == "CHP")
+            clonedCustomers.push_back(new CheapCustomer(customer->getName(), customer->getId()));
+        else if (customer->getType() == "SPC")
+            clonedCustomers.push_back(new SpicyCustomer(customer->getName(), customer->getId()));
     }
-    BaseAction* toRet= new OpenTable(tableId,clonedCustomers, this->getStatus(), this->getErrorMsg());
+    BaseAction *toRet = new OpenTable(tableId, clonedCustomers, this->getStatus(), this->getErrorMsg());
     return toRet;
+}
+
+
+OpenTable::~OpenTable() {
+    for (int i = 0; i < this->customers.size(); ++i) {
+        delete this->customers[i];
+        this->customers[i] = nullptr;
+    }
 }
