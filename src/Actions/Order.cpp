@@ -8,18 +8,28 @@
 using namespace std;
 
 Order::Order(int id) : BaseAction::BaseAction(), tableId(id) {};
+Order::Order(int id, ActionStatus actionStatus, string errorMsg) : BaseAction::BaseAction(), tableId(id) {
+    if(actionStatus == ActionStatus::COMPLETED)
+        this->complete();
+    if(actionStatus == ActionStatus::ERROR)
+        this->error(errorMsg);
+};
+
 
 void Order::act(Restaurant &restaurant) {
-    vector<OrderPair> lastRoundOrders;
     Table *t1 = restaurant.getTable(tableId);
     if (t1 == nullptr | !t1->isOpen()) {
         string err = "Table does not exist or is already open";
         BaseAction::error(err);
     } else {
         t1->order(restaurant.getMenu());
-        for (std::vector<OrderPair>::iterator it = t1->getOrders().begin(); it != t1->getOrders().end(); ++it) {
-            cout << t1->getCustomer((*it).first)->getName() + " ordered " + (*it).second.getName() << std::endl;
+        vector<OrderPair> lastOrders = t1->getLastOrderList();
+        for (int i = 0; i < lastOrders.size(); ++i) {
+            cout << t1->getCustomer(lastOrders[i].first)->getName() + " ordered " +lastOrders[i].second.getName() << endl;
         }
+//        for (std::vector<OrderPair>::iterator it = t1->getLastOrderList().begin(); it != t1->getLastOrderList().end(); ++it) {
+//            cout << t1->getCustomer((*it).first)->getName() + " ordered " + (*it).second.getName() << std::endl;
+//        }
         complete();
     }
 }

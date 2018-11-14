@@ -215,11 +215,18 @@ void Restaurant::clear() {
  */
 void Restaurant::fillMeUp(vector<Table *> otherTables, vector<Dish> otherMenu, vector<BaseAction *> otherActionsLog,
                           bool otherOpen) {
+    for (int l = 0; l < this->tables.size(); ++l) {
+        delete tables[l];
+        tables[l] = nullptr;
+    }
+    tables.clear();
     for (int i = 0; i < otherTables.size(); ++i) {
-        this->tables[i] = new Table(*otherTables[i]);
+        tables.push_back(new Table(*otherTables[i]));
     }
     for (int j = 0; j < otherActionsLog.size(); ++j) {
-        this->actionsLog[j] = otherActionsLog[j]->clone();
+//        this->actionsLog[j] = otherActionsLog[j]->clone();
+        BaseAction* action = otherActionsLog[j]->clone();
+        string ohad = " ohad";
     }
     menu.clear();
     for (int k = 0; k < otherMenu.size(); ++k) {

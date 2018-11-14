@@ -22,6 +22,7 @@ public:
     void closeTable();
     int getBill();
     bool isOpen();
+    vector<OrderPair> getLastOrderList();
 
     // Destructor
     virtual ~Table();
@@ -49,6 +50,7 @@ private:
     std::vector<OrderPair> orderList; //A list of pairs for each order in a table - (customer_id, Dish)
     void clear();
     void fillMeUp(vector<Customer*> customersListToCopy, std::vector<OrderPair> orderListToCopy);
+    std::vector<OrderPair> lastOrderList;
 };
 
 

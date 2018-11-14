@@ -7,6 +7,13 @@
 using namespace std;
 
 Close::Close(int id) : BaseAction(),tableId(id){};
+Close::Close(int id, ActionStatus actionStatus, string errorMsg) : BaseAction(),tableId(id){
+    if(actionStatus == ActionStatus::COMPLETED)
+        this->complete();
+    if(actionStatus == ActionStatus::ERROR)
+        this->error(errorMsg);
+};
+
 void Close::act(Restaurant &restaurant) {
     Table* t1=restaurant.getTable(tableId);
     if(t1 == nullptr | !t1->isOpen()){
@@ -31,6 +38,6 @@ string Close::toString() const {
     return toRet;
 }
 BaseAction* Close::clone() {
-    BaseAction* toRet=new Close(tableId);
+    BaseAction* toRet=new Close(tableId, this->getStatus(), this->getErrorMsg());
     return toRet;
 }

@@ -7,6 +7,12 @@
 using namespace std;
 
 PrintActionsLog::PrintActionsLog() {};
+PrintActionsLog::PrintActionsLog(ActionStatus actionStatus, string errorMsg) {
+    if(actionStatus == ActionStatus::COMPLETED)
+        this->complete();
+    if(actionStatus == ActionStatus::ERROR)
+        this->error(errorMsg);
+};
 string PrintActionsLog::toString() const {
     string toRet="log";
     if(this->getStatus()==COMPLETED)
@@ -27,6 +33,6 @@ void PrintActionsLog::act(Restaurant &restaurant) {
     complete();
 }
 BaseAction* PrintActionsLog::clone() {
-    BaseAction* toRet=new PrintActionsLog();
+    BaseAction* toRet=new PrintActionsLog(this->getStatus(), this->getErrorMsg());
     return toRet;
 }

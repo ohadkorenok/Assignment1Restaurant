@@ -10,6 +10,13 @@
 using namespace std;
 
 MoveCustomer::MoveCustomer(int src, int dst, int customerId) : srcTable(src), dstTable(dst), id(customerId) {};
+MoveCustomer::MoveCustomer(int src, int dst, int customerId, ActionStatus actionStatus, string errorMsg) : srcTable(src), dstTable(dst), id(customerId) {
+    if(actionStatus == ActionStatus::COMPLETED)
+        this->complete();
+    if(actionStatus == ActionStatus::ERROR)
+        this->error(errorMsg);
+};
+
 
 void MoveCustomer::act(Restaurant &restaurant) {
     Table *t1 = restaurant.getTable(srcTable);
@@ -68,6 +75,6 @@ string MoveCustomer::toString() const {
     return toRet;
 }
 BaseAction* MoveCustomer::clone() {
-    BaseAction* toRet=new MoveCustomer(srcTable,dstTable,id);
+    BaseAction* toRet=new MoveCustomer(srcTable,dstTable,id, this->getStatus(), this->getErrorMsg());
     return toRet;
 }

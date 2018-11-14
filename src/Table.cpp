@@ -160,12 +160,13 @@ void Table::order(const std::vector<Dish> &menu) {
     if (!open) {
         std::cout << "table is not open" << endl;
     }
+    lastOrderList.clear();
     vector<int> customerOrder;
-//    orderList.clear();
     for (int i = 0; i < customersList.size(); ++i) {
         for (int customerOrder1 :  customersList[i]->order(menu)) {
             if (customerOrder1 != -1) {
                 orderList.push_back(OrderPair(customersList[i]->getId(), menu[customerOrder1]));
+                lastOrderList.push_back(OrderPair(customersList[i]->getId(), menu[customerOrder1]));
             }
         }
     }
@@ -188,4 +189,8 @@ int Table::getBill() {
         sum += orderPair1.second.getPrice();
     }
     return sum;
+}
+
+vector<OrderPair> Table::getLastOrderList() {
+    return lastOrderList;
 }

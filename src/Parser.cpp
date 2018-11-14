@@ -71,9 +71,9 @@ BaseAction *Parser::parse(std::string firstWord, std::string fullLine, Restauran
         if (firstWord == "log") {
             customAction = new PrintActionsLog();
         }
-//        if(firstWord == "backuo"){
-//            customAction = new BackupRestaurant();
-//        }
+        if(firstWord == "backup"){
+            customAction = new BackupRestaurant();
+        }
 //
 //        if(firstWord == "restore"){
 //            customAction = new RestoreResturant();

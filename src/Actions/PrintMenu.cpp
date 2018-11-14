@@ -7,6 +7,13 @@
 using namespace std;
 
 PrintMenu::PrintMenu() {};
+PrintMenu::PrintMenu(ActionStatus actionStatus, string errorMsg) {
+    if(actionStatus == ActionStatus::COMPLETED)
+        this->complete();
+    if(actionStatus == ActionStatus::ERROR)
+        this->error(errorMsg);
+};
+
 void PrintMenu::act(Restaurant &restaurant) {
     for(Dish i : restaurant.getMenu())
 //        cout<<i.getName()+" "+ to_string(i.getType())+" "+ to_string(i.getPrice())+"NIS"+"\n"<<endl;
@@ -23,6 +30,6 @@ string PrintMenu::toString() const {
     return toRet;
 };
 BaseAction* PrintMenu::clone() {
-    BaseAction* toRet=new PrintMenu();
+    BaseAction* toRet=new PrintMenu(this->getStatus(), this->getErrorMsg());
     return toRet;
 }

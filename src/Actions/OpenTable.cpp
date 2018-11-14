@@ -10,6 +10,13 @@ using namespace std;
 OpenTable::OpenTable(int id, std::vector<Customer *> &customersList)
         : BaseAction::BaseAction(), tableId(id), customers(customersList) {};
 
+OpenTable::OpenTable(int id, std::vector<Customer *> &customersList, ActionStatus actionStatus, string errorMsg)
+        : BaseAction::BaseAction(), tableId(id), customers(customersList) {
+    if(actionStatus == ActionStatus::COMPLETED)
+        this->complete();
+    if(actionStatus == ActionStatus::ERROR)
+        this->error(errorMsg);
+};
 void OpenTable::act(Restaurant &restaurant) {
     Table *t1 = restaurant.getTable(tableId);
     if (t1 == nullptr | t1->isOpen()) {
@@ -57,6 +64,6 @@ BaseAction* OpenTable::clone() {
         else if(customer->getType()=="SPC")
             clonedCustomers.push_back(new SpicyCustomer(customer->getName(),customer->getId()));
     }
-    BaseAction* toRet= new OpenTable(tableId,clonedCustomers);
+    BaseAction* toRet= new OpenTable(tableId,clonedCustomers, this->getStatus(), this->getErrorMsg());
     return toRet;
 }
