@@ -48,3 +48,7 @@ int AlchoholicCustomer::findCheapestNerase(vector<AlcoholPair> &alc) {
 }
 std::string AlchoholicCustomer::toString() const {return (std::string(getName())+","+std::to_string(getId()));}
 std::string AlchoholicCustomer::getType() const {return "alc";}
+Customer* AlchoholicCustomer::retBytype(string nameInput,int idInput) {
+    Customer* toRet=new AlchoholicCustomer(nameInput,idInput);
+    return (toRet);
+}
