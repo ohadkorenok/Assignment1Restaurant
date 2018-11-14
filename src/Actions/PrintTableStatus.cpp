@@ -18,7 +18,7 @@ void PrintTableStatus::act(Restaurant &restaurant) {
         }
         cout<<"Orders:"<<endl;
         for(OrderPair i : t1->getOrders())
-            cout<<to_string(i.second.getId())+" "+to_string(i.second.getPrice())+"NIS"+" "+to_string(i.first)<<endl;
+            cout<<i.second.getName()+" "+to_string(i.second.getPrice())+"NIS"+" "+to_string(i.first)<<endl;
         cout<<"Current Bill: "+to_string(t1->getBill())+"NIS"<<endl;
     }
     complete();

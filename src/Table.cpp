@@ -161,7 +161,7 @@ void Table::order(const std::vector<Dish> &menu) {
         std::cout << "table is not open" << endl;
     }
     vector<int> customerOrder;
-    orderList.clear();
+//    orderList.clear();
     for (int i = 0; i < customersList.size(); ++i) {
         for (int customerOrder1 :  customersList[i]->order(menu)) {
             if (customerOrder1 != -1) {
@@ -187,4 +187,5 @@ int Table::getBill() {
     for (OrderPair const &orderPair1 : orderList) {
         sum += orderPair1.second.getPrice();
     }
+    return sum;
 }

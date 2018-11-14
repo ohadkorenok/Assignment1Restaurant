@@ -13,6 +13,7 @@ public:
     virtual std::vector<int> order(const std::vector<Dish> &menu)=0;
     virtual std::string toString() const = 0;
     virtual std::string getType() const = 0;
+    virtual Customer* retBytype(string nameInput,int idInput)=0;
     std::string getName() const;
     int getId() const;
 private:
@@ -27,6 +28,7 @@ public:
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
     std::string getType() const;
+    Customer* retBytype(string nameInput,int idInput);
 private:
 };
 
@@ -37,6 +39,7 @@ public:
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
     std::string getType() const;
+    Customer* retBytype(string nameInput,int idInput);
 private:
     bool _isOrdered;
 };
@@ -48,6 +51,7 @@ public:
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
     std::string getType() const;
+    Customer* retBytype(string nameInput,int idInput);
 private:
     bool _isOredered;
 };
@@ -60,6 +64,7 @@ public:
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
     std::string getType() const;
+    Customer* retBytype(string nameInput,int idInput);
 private:
     int findCheapestNerase(vector<AlcoholPair> &alc);
     std::vector<AlcoholPair> alcohol;

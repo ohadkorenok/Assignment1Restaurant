@@ -5,6 +5,8 @@
 #include <iostream>
 #include "Customer.h"
 
+
+
 enum ActionStatus{
     PENDING, COMPLETED, ERROR
 };
@@ -13,6 +15,7 @@ enum ActionStatus{
 class Restaurant;
 
 class BaseAction{
+
 public:
     BaseAction();
     ActionStatus getStatus() const;

@@ -32,22 +32,25 @@ void MoveCustomer::act(Restaurant &restaurant) {
                 srcOrders.push_back(copySrcOrders[j]); //TODO ::check what the fuck is going on with the copy.
             }
         }
-        int newId = t2->getCustomers().size();
+        t1->getOrders().clear();
+        for(OrderPair i : srcOrders)
+            t1->getOrders().push_back(i);
+//        int newId = t2->getCustomers().size();
         Customer *customer = t1->getCustomer(id);
-        Customer *customerToAdd;
-        if (customer->getType() == "ALC") {
-            customerToAdd = new AlchoholicCustomer(customer->getName(), newId);
-        }
-        if (customer->getType() == "SPC") {
-            customerToAdd = new SpicyCustomer(customer->getName(), newId);
-        }
-        if (customer->getType() == "CHP") {
-            customerToAdd = new CheapCustomer(customer->getName(), newId);
-        }
-        if (customer->getType() == "VEG") {
-            customerToAdd = new VegetarianCustomer(customer->getName(), newId);
-        }
-        t2->addCustomer(customerToAdd);
+//        Customer *customerToAdd;
+//        if (customer->getType() == "ALC") {
+//            customerToAdd = new AlchoholicCustomer(customer->getName(), id);
+//        }
+//        if (customer->getType() == "SPC") {
+//            customerToAdd = new SpicyCustomer(customer->getName(), id);
+//        }
+//        if (customer->getType() == "CHP") {
+//            customerToAdd = new CheapCustomer(customer->getName(), id);
+//        }
+//        if (customer->getType() == "VEG") {
+//            customerToAdd = new VegetarianCustomer(customer->getName(), id);
+//        }
+        t2->addCustomer(customer);
         t1->removeCustomer(id);
 
         complete();
