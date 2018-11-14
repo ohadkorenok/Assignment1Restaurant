@@ -12,6 +12,69 @@ const std::vector<BaseAction *> &Restaurant::getActionsLog() const {
     return this->actionsLog;
 }
 
+/**
+ * Copy constructor.
+ * @param other
+ */
+Restaurant::Restaurant(const Restaurant &other) {
+    fillMeUp(other.tables, other.menu, other.actionsLog, other.open);
+}
+
+/**
+ * Move constructor
+ * @param other
+ */
+Restaurant::Restaurant(Restaurant &&other) {
+    if (this != &other) {
+        stealFromOther(other.tables, other.menu, other.actionsLog, other.open);
+    }
+}
+
+/**
+ * Destructor.
+ */
+Restaurant::~Restaurant() {
+    clear();
+}
+
+
+/**
+ * Move assignment operator
+ * @param other
+ * @return
+ */
+Restaurant &Restaurant::operator=(Restaurant &&other) {
+    if (this == &other) {
+        return *this;
+    }
+    stealFromOther(other.tables, other.menu, other.actionsLog, other.open);
+    return *this;
+}
+
+/**
+ * Copy assignment operator
+ * @param Restaurant
+ * @return
+ */
+Restaurant &Restaurant::operator=(const Restaurant &Restaurant) {
+    if (this == &Restaurant) {
+        return *this;
+    }
+
+    for (int l = 0; l < this->tables.size(); ++l) {
+        delete tables[l];
+        tables[l] = nullptr;
+    }
+//    tables.clear();
+    for (int m = 0; m < actionsLog.size(); ++m) {
+        delete actionsLog[m];
+        actionsLog[m] = nullptr;
+    }
+
+    fillMeUp(Restaurant.tables, Restaurant.menu, Restaurant.actionsLog, Restaurant.open);
+    return *this;
+}
+
 vector<string> Restaurant::extractArgumentsFromConfig(const string &configFilePath) {
     std::vector<string> arguments(3);
     std::string line;
@@ -149,67 +212,6 @@ void Restaurant::closeRestaurant() {
     this->open = false;
 }
 
-/**
- * Copy constructor.
- * @param other
- */
-Restaurant::Restaurant(const Restaurant &other) {
-    fillMeUp(other.tables, other.menu, other.actionsLog, other.open);
-}
-
-/**
- * Move constructor
- * @param other
- */
-Restaurant::Restaurant(Restaurant &&other) {
-    if (this != &other) {
-        stealFromOther(other.tables, other.menu, other.actionsLog, other.open);
-    }
-}
-
-/**
- * Destructor.
- */
-Restaurant::~Restaurant() {
-    clear();
-}
-
-
-/**
- * Move assignment operator
- * @param other
- * @return
- */
-Restaurant &Restaurant::operator=(Restaurant &&other) {
-    if (this == &other) {
-        return *this;
-    }
-    stealFromOther(other.tables, other.menu, other.actionsLog, other.open);
-    return *this;
-}
-
-/**
- * Copy assignment operator
- * @param Restaurant
- * @return
- */
-Restaurant &Restaurant::operator=(const Restaurant &Restaurant) {
-    if (this == &Restaurant) {
-        return *this;
-    }
-
-    for (int l = 0; l < this->tables.size(); ++l) {
-        delete tables[l];
-        tables[l] = nullptr;
-    }
-    for (int m = 0; m < actionsLog.size(); ++m) {
-        delete actionsLog[m];
-        actionsLog[m] = nullptr;
-    }
-
-    fillMeUp(Restaurant.tables, Restaurant.menu, Restaurant.actionsLog, Restaurant.open);
-    return *this;
-}
 
 void Restaurant::clear() {
     for (int i = 0; i < actionsLog.size(); ++i) {
@@ -220,6 +222,8 @@ void Restaurant::clear() {
         delete tables[j];
         tables[j] = nullptr;
     }
+    tables.clear();
+    actionsLog.clear();
 }
 
 /**
@@ -236,7 +240,9 @@ void Restaurant::fillMeUp(vector<Table *> otherTables, vector<Dish> otherMenu, v
     }
     for (int j = 0; j < otherActionsLog.size(); ++j) {
 //        this->actionsLog[j] = otherActionsLog[j]->clone();
-        BaseAction *action = otherActionsLog[j]->clone();
+        BaseAction* action = otherActionsLog[j]->clone();
+        actionsLog.push_back(action);
+
         string ohad = " ohad";
     }
     menu.clear();

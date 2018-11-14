@@ -49,3 +49,5 @@ BaseAction* Order::clone() {
     BaseAction* toRet=new Order(tableId, this->getStatus(), this->getErrorMsg());
     return toRet;
 }
+
+Order::~Order() {}

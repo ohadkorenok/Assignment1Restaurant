@@ -44,7 +44,7 @@ std::vector<int> SpicyCustomer::order(const std::vector<Dish> &menu) {
 
 std::string SpicyCustomer::toString() const { return (std::string(getName()) + "," + std::to_string(getId())); };
 
-std::string SpicyCustomer::getType() const { return "spc"; };
+std::string SpicyCustomer::getType() const { return "SPC"; };
 Customer* SpicyCustomer::retBytype(string nameInput, int idInput) {
     Customer* toRet=new SpicyCustomer(nameInput,idInput);
     return (toRet);

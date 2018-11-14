@@ -22,7 +22,7 @@ std::vector<int> CheapCustomer::order(const std::vector<Dish> &menu) {
 }
 
 std::string CheapCustomer::toString() const {return (std::string(getName())+","+std::to_string(getId()));}
-std::string CheapCustomer::getType() const {return "chp";}
+std::string CheapCustomer::getType() const {return "CHP";}
 Customer* CheapCustomer::retBytype(string nameInput, int idInput) {
     Customer* toRet=new CheapCustomer(nameInput,idInput);
     return (toRet);

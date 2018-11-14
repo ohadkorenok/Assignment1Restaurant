@@ -74,10 +74,10 @@ BaseAction *Parser::parse(std::string firstWord, std::string fullLine, Restauran
         if(firstWord == "backup"){
             customAction = new BackupRestaurant();
         }
-//
-//        if(firstWord == "restore"){
-//            customAction = new RestoreResturant();
-//        }
+
+        if(firstWord == "restore"){
+            customAction = new RestoreResturant();
+        }
         action = runAction(customAction, restaurant);
     }
 

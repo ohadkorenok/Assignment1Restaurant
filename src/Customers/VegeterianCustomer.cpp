@@ -28,7 +28,7 @@ std::vector<int> VegetarianCustomer::order(const std::vector<Dish> &menu) {
 std::string VegetarianCustomer::toString() const {
     return (std::string(getName())+","+std::to_string(getId()));
 }
-std::string VegetarianCustomer::getType() const {return "veg";};
+std::string VegetarianCustomer::getType() const {return "VEG";};
 
 Customer* VegetarianCustomer::retBytype(string nameInput, int idInput) {
     Customer* toRet=new VegetarianCustomer(nameInput,idInput);

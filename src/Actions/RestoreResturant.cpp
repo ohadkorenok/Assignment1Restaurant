@@ -17,6 +17,7 @@ RestoreResturant::RestoreResturant(ActionStatus actionStatus) {
 void RestoreResturant::act(Restaurant &restaurant) {
     if (backup != nullptr) {
         restaurant = (*backup);
+        string ohad = "ohad";
     } else
         error("No backup available");
 }
