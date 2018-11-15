@@ -170,6 +170,7 @@ void Table::order(const std::vector<Dish> &menu) {
     lastOrderList.clear();
     vector<int> customerOrder;
     for (size_t i = 0; i < customersList.size(); ++i) {
+        cout << "CustomerName : "+customersList[i]->getName() << endl;
         for (int customerOrder1 :  customersList[i]->order(menu)) {
             if (customerOrder1 != -1) {
                 orderList.push_back(OrderPair(customersList[i]->getId(), menu[customerOrder1]));

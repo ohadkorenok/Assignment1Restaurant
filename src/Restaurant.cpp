@@ -80,6 +80,7 @@ vector<string> Restaurant::extractArgumentsFromConfig(const string &configFilePa
     std::string line;
     std::string tableNumbers;
     std::ifstream myFile(configFilePath);
+    cout << "config file path is : "+configFilePath << endl;
     int i = 0;
     if (myFile.is_open()) {
         while (std::getline(myFile, line) && i <= 2) {
@@ -114,13 +115,20 @@ Restaurant::Restaurant() {}
 Restaurant::Restaurant(const std::string &configFilePath) {
     this->open = true;
     this->nextCustomerId = 0;
-    std::string pathname = __BASE_FILE__;
-    string const configurationFile = pathname.substr(0, pathname.size() - 19) + "/" + configFilePath;
+//    std::string pathname = __BASE_FILE__;
+//    string const configurationFile = pathname.substr(0, pathname.size() - 19) + "/" + configFilePath;
+//    cout<< "configurationFile = "+configurationFile<<endl;
     vector<string> arguments;
-    arguments = Restaurant::extractArgumentsFromConfig(configurationFile);
+    cout << "configuration is : "+configFilePath << endl;
+    arguments = Restaurant::extractArgumentsFromConfig(configFilePath);
+    cout << "ExtractArgumentsFromConfig completed"<<endl;
     if (arguments.size() == 3) {
+        cout << "after the if." << endl;
         createTablesFromArguments(arguments);
+        cout << "after tables from arguments"<<endl;
         buildMenuFromArguments(arguments[2]);
+        cout << "after MenuFromArguments"<<endl;
+
     } else {
         cout << "arguments size different from 3 " << endl;
     }
@@ -175,6 +183,8 @@ std::vector<Dish> &Restaurant::getMenu() {
  * @return
  */
 bool Restaurant::createTablesFromArguments(vector<string> argument) {
+    cout<< " hello" << endl;
+    cout << "Create Tables from arguments : this are the arguments: argument[0] = "+ argument[0] + " argument[1] = "+argument[1]+" arguments[2] = "+argument[2] << endl;
     int numberOfTables = stoi(argument[0]);
     vector<Table *> tables(numberOfTables);
     string token;

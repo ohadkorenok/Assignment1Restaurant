@@ -17,13 +17,17 @@ Order::Order(int id, ActionStatus actionStatus, string errorMsg) : BaseAction::B
 
 
 void Order::act(Restaurant &restaurant) {
+    cout << "hello to ORDER :: act" << endl;
     Table *t1 = restaurant.getTable(tableId);
     if ((t1 == nullptr) | (!t1->isOpen())) {
         string err = "Table does not exist or is already open";
         BaseAction::error(err);
     } else {
+        cout<<"after the getTable"<<endl;
         t1->order(restaurant.getMenu());
+        cout<<"after the menu" << endl;
         vector<OrderPair> lastOrders = t1->getLastOrderList();
+        cout<<"after getLastOrderList" << endl;
         for (size_t i = 0; i < lastOrders.size(); ++i) {
             cout << t1->getCustomer(lastOrders[i].first)->getName() + " ordered " +lastOrders[i].second.getName() << endl;
         }
