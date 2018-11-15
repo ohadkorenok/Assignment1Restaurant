@@ -4,7 +4,7 @@
 
 //TODO :: Problem with vegeterian customer.
 #include <limits>
-#include "../../include/Customer.h"
+#include "../include/Customer.h"
 VegetarianCustomer::VegetarianCustomer(std::string name, int id) : Customer(name, id){}
 std::vector<int> VegetarianCustomer::order(const std::vector<Dish> &menu) {
     std::vector<int> vecofOrder(2,-1);

@@ -1,9 +1,9 @@
 //
 // Created by nitzan on 13/11/18.
 //
-#include "../../include/Action.h"
-#include "../../include/Table.h"
-#include "../../include/Restaurant.h"
+#include "../include/Action.h"
+#include "../include/Table.h"
+#include "../include/Restaurant.h"
 
 extern Restaurant *backup;
 

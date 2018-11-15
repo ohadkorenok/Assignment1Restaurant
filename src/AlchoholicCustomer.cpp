@@ -3,8 +3,8 @@
 //
 
 
-#include "../../include/Customer.h"
-#include "../../include/Dish.h"
+#include "../include/Customer.h"
+#include "../include/Dish.h"
 #include <algorithm>
 using namespace std;
 
