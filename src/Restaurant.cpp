@@ -65,12 +65,12 @@ Restaurant &Restaurant::operator=(const Restaurant &Restaurant) {
         delete tables[l];
         tables[l] = nullptr;
     }
-//    tables.clear();
+   tables.clear();
     for (int m = 0; m < actionsLog.size(); ++m) {
         delete actionsLog[m];
         actionsLog[m] = nullptr;
     }
-
+    actionsLog.clear();
     fillMeUp(Restaurant.tables, Restaurant.menu, Restaurant.actionsLog, Restaurant.open);
     return *this;
 }
@@ -236,7 +236,9 @@ void Restaurant::clear() {
 void Restaurant::fillMeUp(vector<Table *> otherTables, vector<Dish> otherMenu, vector<BaseAction *> otherActionsLog,
                           bool otherOpen) {
     for (int i = 0; i < otherTables.size(); ++i) {
-        tables.push_back(new Table(*otherTables[i]));
+        Table* tabletoPush=nullptr;
+        tabletoPush=new Table(*otherTables[i]);
+        tables.push_back(tabletoPush);
     }
     for (int j = 0; j < otherActionsLog.size(); ++j) {
 //        this->actionsLog[j] = otherActionsLog[j]->clone();
