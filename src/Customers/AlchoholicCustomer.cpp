@@ -17,6 +17,7 @@ vector<int> AlchoholicCustomer::order(const std::vector<Dish> &menu) {
             if(it->getType()==ALC) {
                 AlcoholPair toPush(it->getId(),it->getPrice());
                 alcohol.push_back(toPush);
+                delete &toPush;
             }
         }
         vecofOrder[0]=findCheapestNerase(alcohol);

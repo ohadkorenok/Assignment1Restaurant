@@ -26,7 +26,8 @@ std::string BackupRestaurant::toString() const {
     return toRet;
 }
 BaseAction* BackupRestaurant::clone() {
-    BaseAction* toRet=new BackupRestaurant(this->getStatus());
+    BaseAction* toRet= nullptr;
+    toRet=new BackupRestaurant(this->getStatus());
     return toRet;
 }
 

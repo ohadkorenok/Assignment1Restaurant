@@ -30,7 +30,7 @@ void OpenTable::act(Restaurant &restaurant) {
     } else {
         t1->openTable();
         for (int i = 0; i < customers.size(); ++i) {
-            Customer *customer1;
+            Customer *customer1=nullptr;
             if (customers[i]->getType() == "ALC") {
                 customer1 = new AlchoholicCustomer(customers[i]->getName(), customers[i]->getId());
             } else if (customers[i]->getType() == "CHP") {
@@ -65,14 +65,26 @@ string OpenTable::toString() const {
 BaseAction *OpenTable::clone() {
     vector<Customer *> clonedCustomers;
     for (Customer *customer: customers) {
-        if (customer->getType() == "ALC")
-            clonedCustomers.push_back(new AlchoholicCustomer(customer->getName(), customer->getId()));
-        else if (customer->getType() == "VEG")
-            clonedCustomers.push_back(new VegetarianCustomer(customer->getName(), customer->getId()));
-        else if (customer->getType() == "CHP")
-            clonedCustomers.push_back(new CheapCustomer(customer->getName(), customer->getId()));
-        else if (customer->getType() == "SPC")
-            clonedCustomers.push_back(new SpicyCustomer(customer->getName(), customer->getId()));
+        if (customer->getType() == "ALC"){
+            Customer* customerToPush=nullptr;
+            customerToPush = new AlchoholicCustomer(customer->getName(), customer->getId());
+            clonedCustomers.push_back(customerToPush);
+        }
+        else if (customer->getType() == "VEG"){
+            Customer* customerToPush=nullptr;
+            customerToPush = new VegetarianCustomer(customer->getName(), customer->getId());
+            clonedCustomers.push_back(customerToPush);
+        }
+        else if (customer->getType() == "CHP") {
+            Customer *customerToPush = nullptr;
+            customerToPush = new CheapCustomer(customer->getName(), customer->getId());
+            clonedCustomers.push_back(customerToPush);
+        }
+        else if (customer->getType() == "SPC"){
+            Customer* customerToPush=nullptr;
+            customerToPush = new SpicyCustomer(customer->getName(), customer->getId());
+            clonedCustomers.push_back(customerToPush);
+        }
     }
     BaseAction *toRet = new OpenTable(tableId, clonedCustomers, this->getStatus(), this->getErrorMsg());
     return toRet;

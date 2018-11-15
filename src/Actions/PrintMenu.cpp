@@ -30,6 +30,7 @@ string PrintMenu::toString() const {
     return toRet;
 };
 BaseAction* PrintMenu::clone() {
-    BaseAction* toRet=new PrintMenu(this->getStatus(), this->getErrorMsg());
+    BaseAction* toRet= nullptr;
+    toRet=new PrintMenu(this->getStatus(), this->getErrorMsg());
     return toRet;
 }

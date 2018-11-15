@@ -46,7 +46,8 @@ string Order::toString() const {
 }
 
 BaseAction* Order::clone() {
-    BaseAction* toRet=new Order(tableId, this->getStatus(), this->getErrorMsg());
+    BaseAction* toRet= nullptr;
+    toRet=new Order(tableId, this->getStatus(), this->getErrorMsg());
     return toRet;
 }
 

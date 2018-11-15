@@ -17,6 +17,7 @@ RestoreResturant::RestoreResturant(ActionStatus actionStatus) {
 void RestoreResturant::act(Restaurant &restaurant) {
     if (backup != nullptr) {
         restaurant = (*backup);
+        complete();
         string ohad = "ohad";
     } else
         error("No backup available");
@@ -32,6 +33,7 @@ std::string RestoreResturant::toString() const {
 }
 
 BaseAction *RestoreResturant::clone() {
-    BaseAction *toRet = new RestoreResturant(this->getStatus());
+    BaseAction* toRet= nullptr;
+    toRet = new RestoreResturant(this->getStatus());
     return toRet;
 }

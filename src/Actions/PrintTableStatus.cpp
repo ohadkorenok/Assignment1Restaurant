@@ -39,6 +39,7 @@ string PrintTableStatus::toString() const {
     return toRet;
 }
 BaseAction* PrintTableStatus::clone() {
-    BaseAction* toRet=new PrintTableStatus(tableId, this->getStatus(), this->getErrorMsg());
+    BaseAction* toRet= nullptr;
+    toRet=new PrintTableStatus(tableId, this->getStatus(), this->getErrorMsg());
     return toRet;
 }

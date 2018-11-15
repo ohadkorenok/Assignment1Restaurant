@@ -75,6 +75,7 @@ string MoveCustomer::toString() const {
     return toRet;
 }
 BaseAction* MoveCustomer::clone() {
-    BaseAction* toRet=new MoveCustomer(srcTable,dstTable,id, this->getStatus(), this->getErrorMsg());
+    BaseAction* toRet= nullptr;
+    toRet=new MoveCustomer(srcTable,dstTable,id, this->getStatus(), this->getErrorMsg());
     return toRet;
 }

@@ -38,6 +38,7 @@ string Close::toString() const {
     return toRet;
 }
 BaseAction* Close::clone() {
-    BaseAction* toRet=new Close(tableId, this->getStatus(), this->getErrorMsg());
+    BaseAction* toRet= nullptr;
+    toRet=new Close(tableId, this->getStatus(), this->getErrorMsg());
     return toRet;
 }

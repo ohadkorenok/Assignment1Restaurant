@@ -6,7 +6,7 @@
 #include "Dish.h"
 
 using namespace std;
-
+typedef std::pair<int, int> AlcoholPair; //first=id of alcohol,second=price;
 class Customer{
 public:
     Customer(std::string c_name, int c_id);
@@ -58,7 +58,7 @@ private:
 
 
 class AlchoholicCustomer : public Customer {
-    typedef std::pair<int, int> AlcoholPair; //first=id of alcohol,second=price;
+
 public:
     AlchoholicCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Dish> &menu);

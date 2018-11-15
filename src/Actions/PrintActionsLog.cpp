@@ -33,6 +33,7 @@ void PrintActionsLog::act(Restaurant &restaurant) {
     complete();
 }
 BaseAction* PrintActionsLog::clone() {
-    BaseAction* toRet=new PrintActionsLog(this->getStatus(), this->getErrorMsg());
+    BaseAction* toRet= nullptr;
+    toRet=new PrintActionsLog(this->getStatus(), this->getErrorMsg());
     return toRet;
 }

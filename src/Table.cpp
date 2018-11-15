@@ -68,15 +68,23 @@ Table& Table::operator=(Table &&other) {
 void Table::fillMeUp(vector<Customer *> customersListToCopy, std::vector<OrderPair> orderListToCopy) {
     for (Customer *customer : customersListToCopy) {
         if (customer->getType() == "ALC") {
-            customersList.push_back(new AlchoholicCustomer(customer->getName(), customer->getId()));
+            Customer* customerToPush=nullptr;
+            customerToPush=new AlchoholicCustomer(customer->getName(), customer->getId());
+            customersList.push_back(customerToPush);
         } else if (customer->getType() == "CHP") {
-            customersList.push_back(new CheapCustomer(customer->getName(), customer->getId()));
+            Customer* customerToPush=nullptr;
+            customerToPush=new CheapCustomer(customer->getName(), customer->getId());
+            customersList.push_back(customerToPush);
 
         } else if (customer->getType() == "SPC") {
-            customersList.push_back(new SpicyCustomer(customer->getName(), customer->getId()));
+            Customer* customerToPush=nullptr;
+            customerToPush=new SpicyCustomer(customer->getName(), customer->getId());
+            customersList.push_back(customerToPush);
 
         } else if (customer->getType() == "VEG") {
-            customersList.push_back(new VegetarianCustomer(customer->getName(), customer->getId()));
+            Customer* customerToPush=nullptr;
+            customerToPush=new VegetarianCustomer(customer->getName(), customer->getId());
+            customersList.push_back(customerToPush);
         }
     }
     for (OrderPair orderPair : orderListToCopy) {
