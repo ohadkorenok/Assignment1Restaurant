@@ -20,16 +20,16 @@ OpenTable::OpenTable(int id, std::vector<Customer *> &customersList, ActionStatu
 
 void OpenTable::act(Restaurant &restaurant) {
     Table *t1 = restaurant.getTable(tableId);
-    if (t1 == nullptr | t1->isOpen()) {
+    if ((t1 == nullptr) | (t1->isOpen())) {
         string err = "Table does not exist or is already open";
         error(err);
-    } else if (customers.size() > t1->getCapacity()) {
+    } else if (customers.size() > size_t (t1->getCapacity())) {
         error("The desired table is not big enough for all of the customers, could not open the table!  ");
     } else if (customers.empty()) {
         error("no suitable customers for this table! The table will not be opened. ");
     } else {
         t1->openTable();
-        for (int i = 0; i < customers.size(); ++i) {
+        for (size_t i = 0; i < customers.size(); ++i) {
             Customer *customer1=nullptr;
             if (customers[i]->getType() == "ALC") {
                 customer1 = new AlchoholicCustomer(customers[i]->getName(), customers[i]->getId());
@@ -92,7 +92,7 @@ BaseAction *OpenTable::clone() {
 
 
 OpenTable::~OpenTable() {
-    for (int i = 0; i < this->customers.size(); ++i) {
+    for (size_t i = 0; i < this->customers.size(); ++i) {
         delete this->customers[i];
         this->customers[i] = nullptr;
     }

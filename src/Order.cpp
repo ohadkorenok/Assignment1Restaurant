@@ -18,13 +18,13 @@ Order::Order(int id, ActionStatus actionStatus, string errorMsg) : BaseAction::B
 
 void Order::act(Restaurant &restaurant) {
     Table *t1 = restaurant.getTable(tableId);
-    if (t1 == nullptr | !t1->isOpen()) {
+    if ((t1 == nullptr) | (!t1->isOpen())) {
         string err = "Table does not exist or is already open";
         BaseAction::error(err);
     } else {
         t1->order(restaurant.getMenu());
         vector<OrderPair> lastOrders = t1->getLastOrderList();
-        for (int i = 0; i < lastOrders.size(); ++i) {
+        for (size_t i = 0; i < lastOrders.size(); ++i) {
             cout << t1->getCustomer(lastOrders[i].first)->getName() + " ordered " +lastOrders[i].second.getName() << endl;
         }
         complete();

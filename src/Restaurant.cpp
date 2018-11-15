@@ -61,12 +61,12 @@ Restaurant &Restaurant::operator=(const Restaurant &Restaurant) {
         return *this;
     }
 
-    for (int l = 0; l < this->tables.size(); ++l) {
+    for (size_t l = 0; l < this->tables.size(); ++l) {
         delete tables[l];
         tables[l] = nullptr;
     }
    tables.clear();
-    for (int m = 0; m < actionsLog.size(); ++m) {
+    for (size_t m = 0; m < actionsLog.size(); ++m) {
         delete actionsLog[m];
         actionsLog[m] = nullptr;
     }
@@ -157,7 +157,7 @@ void Restaurant::buildMenuFromArguments(string menuArgument) {
             dishType = DishType::VEG;
         } else cout << "problem with building the menu, there is no such dish " + dishArgument[1] << endl;
         string ohad = "ohad";
-        if (dishType == DishType::ALC | dishType == DishType::VEG | DishType::SPC | DishType::BVG) {
+        if ((dishType == DishType::ALC )| (dishType == DishType::VEG) | (dishType==DishType::SPC) | (dishType == DishType::BVG)) {
             Dish dish = Dish(j, dishArgument[0], stoi(dishArgument[2]), dishType);
             this->menu.push_back(dish);
             j++;
@@ -214,11 +214,11 @@ void Restaurant::closeRestaurant() {
 
 
 void Restaurant::clear() {
-    for (int i = 0; i < actionsLog.size(); ++i) {
+    for (size_t i = 0; i < actionsLog.size(); ++i) {
         delete actionsLog[i];
         actionsLog[i] = nullptr;
     }
-    for (int j = 0; j < tables.size(); ++j) {
+    for (size_t j = 0; j < tables.size(); ++j) {
         delete tables[j];
         tables[j] = nullptr;
     }
@@ -235,19 +235,18 @@ void Restaurant::clear() {
  */
 void Restaurant::fillMeUp(vector<Table *> otherTables, vector<Dish> otherMenu, vector<BaseAction *> otherActionsLog,
                           bool otherOpen) {
-    for (int i = 0; i < otherTables.size(); ++i) {
+    for (size_t i = 0; i < otherTables.size(); ++i) {
         Table* tabletoPush=nullptr;
         tabletoPush=new Table(*otherTables[i]);
         tables.push_back(tabletoPush);
     }
-    for (int j = 0; j < otherActionsLog.size(); ++j) {
+    for (size_t j = 0; j < otherActionsLog.size(); ++j) {
         BaseAction* action = otherActionsLog[j]->clone();
         actionsLog.push_back(action);
 
-        string ohad = " ohad";
     }
     menu.clear();
-    for (int k = 0; k < otherMenu.size(); ++k) {
+    for (size_t k = 0; k < otherMenu.size(); ++k) {
         menu.push_back(otherMenu[k]);
     }
     open = otherOpen;
@@ -256,7 +255,7 @@ void Restaurant::fillMeUp(vector<Table *> otherTables, vector<Dish> otherMenu, v
 void Restaurant::stealFromOther(vector<Table *> otherTables, vector<Dish> otherMenu,
                                 vector<BaseAction *> otherActionsLog, bool otherOpen) {
 
-    for (int i = 0; i < otherTables.size(); ++i) {
+    for (size_t i = 0; i < otherTables.size(); ++i) {
         Table *temp = tables[i];
         this->tables[i] = otherTables[i];
         otherTables[i] = nullptr;
@@ -264,12 +263,12 @@ void Restaurant::stealFromOther(vector<Table *> otherTables, vector<Dish> otherM
     }
 
     menu.clear();
-    for (int j = 0; j < otherMenu.size(); ++j) {
+    for (size_t j = 0; j < otherMenu.size(); ++j) {
         menu.push_back(otherMenu[j]);
     }
     otherMenu.clear();
 
-    for (int k = 0; k < otherActionsLog.size(); ++k) {
+    for (size_t k = 0; k < otherActionsLog.size(); ++k) {
         BaseAction *temp;
         temp = actionsLog[k];
         actionsLog[k] = otherActionsLog[k];

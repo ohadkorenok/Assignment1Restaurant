@@ -3,7 +3,7 @@
 //
 
 
-#include "../../include/Customer.h"
+#include "../include/Customer.h"
 #include <limits>
 
 SpicyCustomer::SpicyCustomer(std::string name, int id) : Customer(name, id), _isOredered(false) {};
@@ -28,10 +28,10 @@ std::vector<int> SpicyCustomer::order(const std::vector<Dish> &menu) {
         int cheapestBVGprice = std::numeric_limits<int>::max();
         int cheapestBVGid = std::numeric_limits<int>::max();
         for (const Dish &dish: menu) {
-            if (dish.getType() == BVG & dish.getPrice() < cheapestBVGprice) {
+            if ((dish.getType() == BVG) & (dish.getPrice() < cheapestBVGprice)) {
                 cheapestBVGprice = dish.getPrice();
                 cheapestBVGid = dish.getId();
-            } else if (dish.getType() == BVG & dish.getPrice() == cheapestBVGprice)
+            } else if ((dish.getType() == BVG) & (dish.getPrice() == cheapestBVGprice))
                 if (dish.getId() < cheapestBVGid)
                     cheapestBVGid = dish.getId();
         }
@@ -45,7 +45,3 @@ std::vector<int> SpicyCustomer::order(const std::vector<Dish> &menu) {
 std::string SpicyCustomer::toString() const { return (std::string(getName()) + "," + std::to_string(getId())); };
 
 std::string SpicyCustomer::getType() const { return "SPC"; };
-Customer* SpicyCustomer::retBytype(string nameInput, int idInput) {
-    Customer* toRet=new SpicyCustomer(nameInput,idInput);
-    return (toRet);
-}

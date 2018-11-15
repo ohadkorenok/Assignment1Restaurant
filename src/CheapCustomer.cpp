@@ -1,7 +1,7 @@
 //
 // Created by nitzan on 09/11/18.
 //
-#include "../../include/Customer.h"
+#include "../include/Customer.h"
 #include <limits>
 CheapCustomer::CheapCustomer(std::string name, int id) : Customer(name,id),_isOrdered(false) {};
 std::vector<int> CheapCustomer::order(const std::vector<Dish> &menu) {
@@ -23,7 +23,3 @@ std::vector<int> CheapCustomer::order(const std::vector<Dish> &menu) {
 
 std::string CheapCustomer::toString() const {return (std::string(getName())+","+std::to_string(getId()));}
 std::string CheapCustomer::getType() const {return "CHP";}
-Customer* CheapCustomer::retBytype(string nameInput, int idInput) {
-    Customer* toRet=new CheapCustomer(nameInput,idInput);
-    return (toRet);
-}

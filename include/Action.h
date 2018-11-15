@@ -26,6 +26,9 @@ public:
 
     virtual BaseAction *clone() = 0;
 
+    virtual ~BaseAction()= default;
+
+
 protected:
     void complete();
 

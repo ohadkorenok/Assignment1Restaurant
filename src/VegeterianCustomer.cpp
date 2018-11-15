@@ -2,7 +2,6 @@
 // Created by ohadkoren on 08/11/18.
 //
 
-//TODO :: Problem with vegeterian customer.
 #include <limits>
 #include "../include/Customer.h"
 VegetarianCustomer::VegetarianCustomer(std::string name, int id) : Customer(name, id){}
@@ -12,14 +11,14 @@ std::vector<int> VegetarianCustomer::order(const std::vector<Dish> &menu) {
     int expensiveBVGid=std::numeric_limits<int>::max();
     int maxBVGprice=-1;
     for(std::vector<Dish>::const_iterator it=menu.begin();it!=menu.end();++it){
-        if(it->getType()==VEG & it->getId()<smallestID)
+        if((it->getType()==VEG )& (it->getId()<smallestID))
             smallestID=it->getId();
-        if(it->getType()==BVG & it->getPrice()>maxBVGprice) {
+        if((it->getType()==BVG) & (it->getPrice()>maxBVGprice)) {
             maxBVGprice=it->getPrice();
             expensiveBVGid = it->getId();
         }
     }
-    if(smallestID<numeric_limits<int>::max() & expensiveBVGid<numeric_limits<int>::max()) {
+    if((smallestID<numeric_limits<int>::max() )& (expensiveBVGid<numeric_limits<int>::max())) {
         vecofOrder[0]=smallestID;
         vecofOrder[1] = expensiveBVGid;
     }
@@ -29,8 +28,3 @@ std::string VegetarianCustomer::toString() const {
     return (std::string(getName())+","+std::to_string(getId()));
 }
 std::string VegetarianCustomer::getType() const {return "VEG";};
-
-Customer* VegetarianCustomer::retBytype(string nameInput, int idInput) {
-    Customer* toRet=new VegetarianCustomer(nameInput,idInput);
-    return (toRet);
-}

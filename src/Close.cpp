@@ -16,7 +16,7 @@ Close::Close(int id, ActionStatus actionStatus, string errorMsg) : BaseAction(),
 
 void Close::act(Restaurant &restaurant) {
     Table* t1=restaurant.getTable(tableId);
-    if(t1 == nullptr | !t1->isOpen()){
+    if((t1 == nullptr) | (!t1->isOpen())){
         string err="Table does not exist or isn't open";
         BaseAction::error(err);
     }

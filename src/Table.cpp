@@ -38,7 +38,7 @@ Table::~Table() {
  * @param other
  */
 Table::Table(Table &&other):capacity(other.capacity), open(other.open), orderList(other.orderList) {
-    for (int i = 0; i < other.customersList.size(); ++i) {
+    for (size_t i = 0; i < other.customersList.size(); ++i) {
         customersList[i] = other.customersList[i];
         other.customersList[i] = nullptr;
     }
@@ -53,10 +53,10 @@ Table::Table(Table &&other):capacity(other.capacity), open(other.open), orderLis
 Table& Table::operator=(Table &&other) {
     open = other.open;
     orderList.clear();
-    for (int j = 0; j < other.orderList.size(); ++j) {
+    for (size_t j = 0; j < other.orderList.size(); ++j) {
         orderList.push_back(other.orderList[j]);
     }
-    for (int i = 0; i < other.customersList.size(); ++i) {
+    for (size_t i = 0; i < other.customersList.size(); ++i) {
         customersList[i] = other.customersList[i];
         other.customersList[i] = nullptr;
     }
@@ -118,13 +118,13 @@ int Table::getCapacity() const {
 }
 
 void Table::addCustomer(Customer *customer) {
-    if (this->customersList.size() < this->capacity) {
+    if (this->customersList.size() < size_t (this->capacity)) {
         this->customersList.push_back(customer);
     }
 }
 
 void Table::removeCustomer(int id) {
-    for (int i = 0; i < customersList.size(); ++i) {
+    for (size_t i = 0; i < customersList.size(); ++i) {
         if (customersList[i]->getId() == id) {
             customersList.erase(customersList.begin() + i);
         }
@@ -142,7 +142,7 @@ void Table::removeCustomer(int id) {
 Customer *Table::getCustomer(int id) {
     Customer *customer;
     customer = nullptr;
-    for (int i = 0; i < customersList.size(); ++i) {
+    for (size_t i = 0; i < customersList.size(); ++i) {
         if (customersList[i]->getId() == id) {
             customer = customersList[i];
         }
@@ -169,7 +169,7 @@ void Table::order(const std::vector<Dish> &menu) {
     }
     lastOrderList.clear();
     vector<int> customerOrder;
-    for (int i = 0; i < customersList.size(); ++i) {
+    for (size_t i = 0; i < customersList.size(); ++i) {
         for (int customerOrder1 :  customersList[i]->order(menu)) {
             if (customerOrder1 != -1) {
                 orderList.push_back(OrderPair(customersList[i]->getId(), menu[customerOrder1]));

@@ -21,18 +21,18 @@ MoveCustomer::MoveCustomer(int src, int dst, int customerId, ActionStatus action
 void MoveCustomer::act(Restaurant &restaurant) {
     Table *t1 = restaurant.getTable(srcTable);
     Table *t2 = restaurant.getTable(dstTable);
-    if (t1 == nullptr | !t1->isOpen() | t2 == nullptr |
-        !t2->isOpen() | t1->getCustomer(id) == nullptr | t2->getCustomers().size() >= t2->getCapacity()) {
+    if ((t1 == nullptr) | (!t1->isOpen()) | (t2 == nullptr) |
+            (!t2->isOpen()) | (t1->getCustomer(id) == nullptr) | (t2->getCustomers().size() >= size_t (t2->getCapacity()))) {
         string err = "“Cannot move customer";
         error(err);
     } else {
         vector<OrderPair> copySrcOrders;
         vector<OrderPair> srcOrders = t1->getOrders();
-        for (int i = 0; i < srcOrders.size(); ++i) {
+        for (size_t i = 0; i < srcOrders.size(); ++i) {
             copySrcOrders.push_back(srcOrders[i]);
         }
         srcOrders.clear();
-        for (int j = 0; j < copySrcOrders.size(); ++j) {
+        for (size_t j = 0; j < copySrcOrders.size(); ++j) {
             if (copySrcOrders[j].first == id) {
                 t2->getOrders().push_back(copySrcOrders[j]);
             } else {
