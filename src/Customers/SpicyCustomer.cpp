@@ -2,12 +2,12 @@
 // Created by nitzan on 09/11/18.
 //
 
-//TODO :: change default value of customerDish.
+
 #include "../../include/Customer.h"
 #include <limits>
 
 SpicyCustomer::SpicyCustomer(std::string name, int id) : Customer(name, id), _isOredered(false) {};
-//TODO :: fix the spicyCustomer order.
+
 std::vector<int> SpicyCustomer::order(const std::vector<Dish> &menu) {
     std::vector<int> vecofOrder(1, -1);
     if (!_isOredered) {

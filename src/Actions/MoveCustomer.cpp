@@ -42,21 +42,7 @@ void MoveCustomer::act(Restaurant &restaurant) {
         t1->getOrders().clear();
         for(OrderPair i : srcOrders)
             t1->getOrders().push_back(i);
-//        int newId = t2->getCustomers().size();
         Customer *customer = t1->getCustomer(id);
-//        Customer *customerToAdd;
-//        if (customer->getType() == "ALC") {
-//            customerToAdd = new AlchoholicCustomer(customer->getName(), id);
-//        }
-//        if (customer->getType() == "SPC") {
-//            customerToAdd = new SpicyCustomer(customer->getName(), id);
-//        }
-//        if (customer->getType() == "CHP") {
-//            customerToAdd = new CheapCustomer(customer->getName(), id);
-//        }
-//        if (customer->getType() == "VEG") {
-//            customerToAdd = new VegetarianCustomer(customer->getName(), id);
-//        }
         t2->addCustomer(customer);
         t1->removeCustomer(id);
 

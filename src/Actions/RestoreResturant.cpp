@@ -18,7 +18,6 @@ void RestoreResturant::act(Restaurant &restaurant) {
     if (backup != nullptr) {
         restaurant = (*backup);
         complete();
-        string ohad = "ohad";
     } else
         error("No backup available");
 }

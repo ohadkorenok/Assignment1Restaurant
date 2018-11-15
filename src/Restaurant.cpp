@@ -241,7 +241,6 @@ void Restaurant::fillMeUp(vector<Table *> otherTables, vector<Dish> otherMenu, v
         tables.push_back(tabletoPush);
     }
     for (int j = 0; j < otherActionsLog.size(); ++j) {
-//        this->actionsLog[j] = otherActionsLog[j]->clone();
         BaseAction* action = otherActionsLog[j]->clone();
         actionsLog.push_back(action);
 

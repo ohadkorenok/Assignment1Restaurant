@@ -56,7 +56,6 @@ Table& Table::operator=(Table &&other) {
     for (int j = 0; j < other.orderList.size(); ++j) {
         orderList.push_back(other.orderList[j]);
     }
-//    orderList = other.orderList;
     for (int i = 0; i < other.customersList.size(); ++i) {
         customersList[i] = other.customersList[i];
         other.customersList[i] = nullptr;

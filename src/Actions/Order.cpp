@@ -27,9 +27,6 @@ void Order::act(Restaurant &restaurant) {
         for (int i = 0; i < lastOrders.size(); ++i) {
             cout << t1->getCustomer(lastOrders[i].first)->getName() + " ordered " +lastOrders[i].second.getName() << endl;
         }
-//        for (std::vector<OrderPair>::iterator it = t1->getLastOrderList().begin(); it != t1->getLastOrderList().end(); ++it) {
-//            cout << t1->getCustomer((*it).first)->getName() + " ordered " + (*it).second.getName() << std::endl;
-//        }
         complete();
     }
 }
