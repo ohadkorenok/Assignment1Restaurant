@@ -4,7 +4,6 @@
 Restaurant *backup = nullptr;
 
 int main(int argc, char **argv) {
-    cout <<argv[1]<<endl;
     if (argc != 2) {
         std::cout << "usage: rest <config_path>" << std::endl;
         return 0;

@@ -80,7 +80,6 @@ vector<string> Restaurant::extractArgumentsFromConfig(const string &configFilePa
     std::string line;
     std::string tableNumbers;
     std::ifstream myFile(configFilePath);
-    cout << "config file path is : "+configFilePath << endl;
     int i = 0;
     if (myFile.is_open()) {
         while (std::getline(myFile, line) && i <= 2) {
@@ -91,7 +90,6 @@ vector<string> Restaurant::extractArgumentsFromConfig(const string &configFilePa
             if (i == 2) {
                 string text = line.substr(0, line.rfind('\r'));
                 while (getline(myFile, line)) {
-//                    getline(myFile, line);
                     text += "\n" + line;
                 }
                 arguments[i] = text;
@@ -115,22 +113,15 @@ Restaurant::Restaurant() {}
 Restaurant::Restaurant(const std::string &configFilePath) {
     this->open = true;
     this->nextCustomerId = 0;
-//    std::string pathname = __BASE_FILE__;
-//    string const configurationFile = pathname.substr(0, pathname.size() - 19) + "/" + configFilePath;
-//    cout<< "configurationFile = "+configurationFile<<endl;
+    std::string pathname = __BASE_FILE__; //TODO:: change pathname to bin version.
+    string const configurationFile = pathname.substr(0, pathname.size() - 19) + "/" + configFilePath;
     vector<string> arguments;
-    cout << "configuration is : "+configFilePath << endl;
-    arguments = Restaurant::extractArgumentsFromConfig(configFilePath);
-    cout << "ExtractArgumentsFromConfig completed"<<endl;
+    arguments = Restaurant::extractArgumentsFromConfig(configurationFile);//TODO:: change pathname to bin version.
+//    arguments = Restaurant::extractArgumentsFromConfig(configFilePath);//TODO:: change pathname to bin version.
     if (arguments.size() == 3) {
-        cout << "after the if." << endl;
         createTablesFromArguments(arguments);
-        cout << "after tables from arguments"<<endl;
         buildMenuFromArguments(arguments[2]);
-        cout << "after MenuFromArguments"<<endl;
 
-    } else {
-        cout << "arguments size different from 3 " << endl;
     }
 }
 
@@ -147,7 +138,6 @@ void Restaurant::buildMenuFromArguments(string menuArgument) {
     istringstream is(menuArgument);
     int j = 0;
     while (getline(is, token, '\n')) {
-        cout << token << endl;
         istringstream tokenStream(token);
         int i = 0;
         while (getline(tokenStream, dishToken, ',') && i <= 2) {
@@ -183,8 +173,6 @@ std::vector<Dish> &Restaurant::getMenu() {
  * @return
  */
 bool Restaurant::createTablesFromArguments(vector<string> argument) {
-    cout<< " hello" << endl;
-    cout << "Create Tables from arguments : this are the arguments: argument[0] = "+ argument[0] + " argument[1] = "+argument[1]+" arguments[2] = "+argument[2] << endl;
     int numberOfTables = stoi(argument[0]);
     vector<Table *> tables(numberOfTables);
     string token;
@@ -209,7 +197,7 @@ Table *Restaurant::getTable(int ind) {
 }
 
 void Restaurant::start() {
-    cout << "restaurant is now open! " << endl;
+    cout << "Restaurant is now open! " << endl;
     string line;
     BaseAction* action=nullptr;
     do{
@@ -221,12 +209,6 @@ void Restaurant::start() {
     }
     while ((dynamic_cast<CloseAll*>(action) == nullptr));
     cout<<"Closeall Broke the loop"<<endl;
-//        getline(cin, line);
-//        string firstWord = line.substr(0, line.find(" "));
-//        BaseAction* action=nullptr;
-//        action = Parser::parse(firstWord, line, *this);
-//        actionsLog.push_back(action);
-//    }
 }
 
 void Restaurant::closeRestaurant() {

@@ -5,35 +5,31 @@
 
 BaseAction *Parser::parse(std::string firstWord, std::string fullLine, Restaurant &restaurant) {
     BaseAction *action = nullptr;
-    regex openReg("open\\s*(\\d+)\\s*(.*)");
-    regex orderReg("order\\s*(\\d+)");
-    regex moveReg("move\\s*(\\d+)\\s*(\\d+)\\s*(\\d+)");
-    regex closeReg("close\\s*(\\d+)");
-    regex closeAllReg("closeall\\s*");
-    regex menuReg("menu\\s*");
-    regex statusReg("status\\s*(\\d+)");
-    regex logReg("log");
-    regex backupRestaurantReg("backup");
-    regex restoreReg("restore");
+//    regex openReg("open\\s*(\\d+)\\s*(.*)");
+//    regex orderReg("order\\s*(\\d+)");
+//    regex moveReg("move\\s*(\\d+)\\s*(\\d+)\\s*(\\d+)");
+//    regex closeReg("close\\s*(\\d+)");
+//    regex closeAllReg("closeall\\s*");
+//    regex menuReg("menu\\s*");
+//    regex statusReg("status\\s*(\\d+)");
+//    regex logReg("log");
+//    regex backupRestaurantReg("backup");
+//    regex restoreReg("restore");
 
     map<string, regex> regexDict = {
-            {"open",     openReg},
-            {"order",    orderReg},
-            {"move",     moveReg},
-            {"close",    closeReg},
-            {"closeall", closeAllReg},
-            {"menu",     menuReg},
-            {"status",   statusReg},
-            {"log",      logReg},
-            {"backup",   backupRestaurantReg},
-            {"restore",  restoreReg}
-    };
+            {"open", regex("open\\s*(\\d+)\\s*(.*)")},
+            {"order", regex("order\\s*(\\d+)")},
+            {"move", regex("move\\s*(\\d+)\\s*(\\d+)\\s*(\\d+)")},
+            {"close", regex("close\\s*(\\d+)")},
+            {"closeall", regex("closeall\\s*")},
+            {"menu", regex("menu\\s*")},
+            {"status", regex("status\\s*(\\d+)")},
+            {"log", regex("log")},
+            {"backup", regex("backup")},
+            {"restore", regex("restore")}};
     std::smatch smatch1;
-    if (regex_search(fullLine, smatch1, regexDict[firstWord])) {
-        cout << smatch1[0] << endl;
-    }
+    regex_search(fullLine, smatch1, regexDict[firstWord]);
     if (!smatch1.empty()) {
-        cout << "hi" << endl;
 
         BaseAction *customAction = nullptr;
         if (firstWord == "open") {
@@ -70,11 +66,11 @@ BaseAction *Parser::parse(std::string firstWord, std::string fullLine, Restauran
         if (firstWord == "log") {
             customAction = new PrintActionsLog();
         }
-        if(firstWord == "backup"){
+        if (firstWord == "backup") {
             customAction = new BackupRestaurant();
         }
 
-        if(firstWord == "restore"){
+        if (firstWord == "restore") {
             customAction = new RestoreResturant();
         }
         action = runAction(customAction, restaurant);
@@ -107,9 +103,6 @@ vector<Customer *> Parser::parseOpen(string match, Restaurant &restaurant) {
             customer1 = new SpicyCustomer(name, nextCustomerId);
         } else if (strategy == "VEG") {
             customer1 = new VegetarianCustomer(name, nextCustomerId);
-        } else {
-            cout << "unknown strategy for the customer " + name + ". the strategy given is: " + strategy +
-                    " . the customer will not be added to the table" << endl;
         }
         if (customer1 != nullptr) {
             customerList.push_back(customer1);
@@ -128,6 +121,6 @@ vector<Customer *> Parser::parseOpen(string match, Restaurant &restaurant) {
 BaseAction *Parser::runAction(BaseAction *action, Restaurant &restaurant) {
     action->act(restaurant);
     vector<BaseAction *> actionsLog = restaurant.getActionsLog();
-    cout << "<--------------started to run the action " + action->toString() + " --------------- > ";
+    //cout << action->toString() << endl;
     return action;
 }

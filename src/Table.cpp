@@ -126,11 +126,17 @@ void Table::addCustomer(Customer *customer) {
 }
 
 void Table::removeCustomer(int id) {
-    for (size_t i = 0; i < customersList.size(); ++i) {
-        if (customersList[i]->getId() == id) {
-            customersList.erase(customersList.begin() + i);
+    vector<Customer*> copyCustomerList;
+    for (size_t j = 0; j < customersList.size(); ++j) {
+        if(customersList[j]->getId() != id){
+            copyCustomerList.push_back(customersList[j]);
         }
     }
+    customersList.clear();
+    for (size_t i = 0; i < copyCustomerList.size(); ++i) {
+        customersList.push_back(copyCustomerList[i]);
+    }
+    copyCustomerList.clear();
     if (customersList.empty()) {
         open = false;
     }
