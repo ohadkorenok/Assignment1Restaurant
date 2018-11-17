@@ -93,9 +93,11 @@ void Table::fillMeUp(vector<Customer *> customersListToCopy, std::vector<OrderPa
 }
 
 void Table::clear() {
+    int i=0;
     for (Customer *customer1 : customersList) {
         delete customer1;
-        customer1 = nullptr;
+        customersList[i]=nullptr;
+        i++;
     }
 }
 

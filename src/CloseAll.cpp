@@ -14,7 +14,6 @@ void CloseAll::act(Restaurant &restaurant) {
     }
     restaurant.closeRestaurant();
     complete();
-    std::exit(1);
 }
 string CloseAll::toString() const {
     string toRet="closeall";

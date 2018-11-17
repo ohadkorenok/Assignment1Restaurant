@@ -191,6 +191,7 @@ bool Restaurant::createTablesFromArguments(vector<string> argument) {
     int i = 0;
     istringstream is(argument[1]);
     while (getline(is, token, ',') && i < numberOfTables) {
+        tables[i]=nullptr;
         tables[i] = new Table(stoi(token));
         i++;
     }
@@ -210,12 +211,22 @@ Table *Restaurant::getTable(int ind) {
 void Restaurant::start() {
     cout << "restaurant is now open! " << endl;
     string line;
-    while (true) {
+    BaseAction* action=nullptr;
+    do{
         getline(cin, line);
         string firstWord = line.substr(0, line.find(" "));
-        BaseAction *action = Parser::parse(firstWord, line, *this);
+        //BaseAction* action=nullptr;
+        action = Parser::parse(firstWord, line, *this);
         actionsLog.push_back(action);
     }
+    while ((dynamic_cast<CloseAll*>(action) == nullptr));
+    cout<<"Closeall Broke the loop"<<endl;
+//        getline(cin, line);
+//        string firstWord = line.substr(0, line.find(" "));
+//        BaseAction* action=nullptr;
+//        action = Parser::parse(firstWord, line, *this);
+//        actionsLog.push_back(action);
+//    }
 }
 
 void Restaurant::closeRestaurant() {

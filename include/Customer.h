@@ -28,6 +28,7 @@ public:
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
     std::string getType() const;
+    ~VegetarianCustomer()=default;
 private:
 };
 
@@ -38,6 +39,7 @@ public:
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
     std::string getType() const;
+    ~CheapCustomer()=default;
 private:
     bool _isOrdered;
 };
@@ -49,6 +51,7 @@ public:
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
     std::string getType() const;
+    ~SpicyCustomer()=default;
 private:
     bool _isOredered;
 };
@@ -61,6 +64,7 @@ public:
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
     std::string getType() const;
+    ~AlchoholicCustomer()=default;
 private:
     int findCheapestNerase(vector<AlcoholPair> &alc);
     std::vector<AlcoholPair> alcohol;

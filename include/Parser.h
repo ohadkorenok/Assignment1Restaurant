@@ -6,7 +6,6 @@
 #define ASSIGNMENT1RESTAURANT_PARSER_H
 
 #include <map>
-#include <bits/regex.h>
 #include "Action.h"
 #include "Customer.h"
 #
@@ -15,8 +14,8 @@ public:
 static BaseAction* parse(std::string firstWord, std::string restOfLine, Restaurant &restaurant);
 
 private:
-    static vector<Customer*> parseOpen(string match, Restaurant &restaurant);
-    static BaseAction* runAction(BaseAction *action, Restaurant &restaurant);
+   static vector<Customer*> parseOpen(string match, Restaurant &restaurant);
+   static BaseAction* runAction(BaseAction *action, Restaurant &restaurant);
 };
 
 

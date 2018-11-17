@@ -5,48 +5,16 @@
 
 BaseAction *Parser::parse(std::string firstWord, std::string fullLine, Restaurant &restaurant) {
     BaseAction *action = nullptr;
-//    regex openReg("open\\s*(\\d+)\\s*(.*)");
-//    regex orderReg("order\\s*(\\d+)");
-//    regex moveReg("move\\s*(\\d+)\\s*(\\d+)\\s*(\\d+)");
-//    regex closeReg("close\\s*(\\d+)");
-//    regex closeAllReg("closeall\\s*");
-//    regex printMenuReg("menu\\s*");
-//    regex printTableStatusReg("status\\s*(\\d+)");
-//    regex printActionsLogReg("log");
-//    regex backupRestaurantReg("backup");
-//    regex restoreReg("restore");
-//    regex *openReg=nullptr;
-//    regex *orderReg=nullptr;
-//    regex *moveReg=nullptr;
-//    regex *closeReg=nullptr;
-//    regex *closeAllReg=nullptr;
-//    regex *printMenuReg=nullptr;
-//    regex *printTableStatusReg=nullptr;
-//    regex *printActionsLogReg=nullptr;
-//    regex *backupRestaurantReg=nullptr;
-//    regex *restoreReg=nullptr;
-//    regex *openReg=new regex("open\\s*(\\d+)\\s*(.*)");
-    std::unique_ptr <regex> openReg(new regex("open\\s*(\\d+)\\s*(.*)"));
-    std::unique_ptr <regex> orderReg(new regex("order\\s*(\\d+)"));
-    std::unique_ptr <regex> moveReg(new regex("move\\s*(\\d+)\\s*(\\d+)\\s*(\\d+)");
-    std::unique_ptr <regex> closeReg(new regex("close\\s*(\\d+)");
-    std::unique_ptr <regex> closeAllReg(new regex("closeall\\s*");
-    std::unique_ptr <regex> menuReg(new regex("menu\\s*");
-    std::unique_ptr <regex> statusReg(new regex("status\\s*(\\d+)");
-    std::unique_ptr <regex> logReg(new regex("log"));
-    std::unique_ptr <regex> backupRestaurantReg(new regex("backup");
-    std::unique_ptr <regex> restoreReg(new regex("restore");
-
-//
-//    regex *orderReg=new regex("order\\s*(\\d+)");
-//    regex *moveReg=new regex("move\\s*(\\d+)\\s*(\\d+)\\s*(\\d+)");
-//    regex *closeReg=new regex("close\\s*(\\d+)");
-//    regex *closeAllReg= new regex("closeall\\s*");
-//    regex *printMenuReg=new regex("menu\\s*");
-//    regex *printTableStatusReg= new regex("status\\s*(\\d+)");
-//    regex *printActionsLogReg=new regex("log");
-//    regex *backupRestaurantReg=new regex("backup");
-//    regex *restoreReg=new regex("restore");
+    regex openReg("open\\s*(\\d+)\\s*(.*)");
+    regex orderReg("order\\s*(\\d+)");
+    regex moveReg("move\\s*(\\d+)\\s*(\\d+)\\s*(\\d+)");
+    regex closeReg("close\\s*(\\d+)");
+    regex closeAllReg("closeall\\s*");
+    regex menuReg("menu\\s*");
+    regex statusReg("status\\s*(\\d+)");
+    regex logReg("log");
+    regex backupRestaurantReg("backup");
+    regex restoreReg("restore");
 
     map<string, regex> regexDict = {
             {"open",     openReg},
@@ -55,10 +23,10 @@ BaseAction *Parser::parse(std::string firstWord, std::string fullLine, Restauran
             {"close",    closeReg},
             {"closeall", closeAllReg},
             {"menu",     menuReg},
-            {"status",   *statusReg},
-            {"log",      *logReg},
-//            {"backup",   *backupRestaurantReg},
-            {"restore",  *restoreReg}
+            {"status",   statusReg},
+            {"log",      logReg},
+            {"backup",   backupRestaurantReg},
+            {"restore",  restoreReg}
     };
     std::smatch smatch1;
     if (regex_search(fullLine, smatch1, regexDict[firstWord])) {
@@ -110,9 +78,7 @@ BaseAction *Parser::parse(std::string firstWord, std::string fullLine, Restauran
             customAction = new RestoreResturant();
         }
         action = runAction(customAction, restaurant);
-        delete openReg;
     }
-
     return action;
 
 
@@ -123,6 +89,7 @@ vector<Customer *> Parser::parseOpen(string match, Restaurant &restaurant) {
     istringstream is1(match);
     string customer;
     vector<Customer *> customerList;
+    customerList.clear();
     int nextCustomerId = restaurant.getNextCustomerId();
     while (getline(is1, customer, ' ')) {
         istringstream is2(customer);
