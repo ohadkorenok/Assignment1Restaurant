@@ -1,8 +1,3 @@
-//
-// Created by nitzan on 09/11/18.
-//
-
-
 #include "../include/Customer.h"
 #include "../include/Dish.h"
 #include <algorithm>
@@ -17,7 +12,6 @@ vector<int> AlchoholicCustomer::order(const std::vector<Dish> &menu) {
             if(it->getType()==ALC) {
                 AlcoholPair toPush(it->getId(),it->getPrice());
                 alcohol.push_back(toPush);
-//                delete &toPush;
             }
         }
         vecofOrder[0]=findCheapestNerase(alcohol);

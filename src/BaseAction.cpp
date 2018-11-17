@@ -1,6 +1,3 @@
-//
-// Created by nitzan on 10/11/18.
-//
 #include "../include/Action.h"
 #include "../include/Restaurant.h"
 #include <iostream>

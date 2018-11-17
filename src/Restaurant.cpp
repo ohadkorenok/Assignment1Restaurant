@@ -113,11 +113,8 @@ Restaurant::Restaurant() {}
 Restaurant::Restaurant(const std::string &configFilePath) {
     this->open = true;
     this->nextCustomerId = 0;
-    std::string pathname = __BASE_FILE__; //TODO:: change pathname to bin version.
-    string const configurationFile = pathname.substr(0, pathname.size() - 19) + "/" + configFilePath;
     vector<string> arguments;
-    arguments = Restaurant::extractArgumentsFromConfig(configurationFile);//TODO:: change pathname to bin version.
-//    arguments = Restaurant::extractArgumentsFromConfig(configFilePath);//TODO:: change pathname to bin version.
+    arguments = Restaurant::extractArgumentsFromConfig(configFilePath);
     if (arguments.size() == 3) {
         createTablesFromArguments(arguments);
         buildMenuFromArguments(arguments[2]);
@@ -203,12 +200,10 @@ void Restaurant::start() {
     do{
         getline(cin, line);
         string firstWord = line.substr(0, line.find(" "));
-        //BaseAction* action=nullptr;
         action = Parser::parse(firstWord, line, *this);
         actionsLog.push_back(action);
     }
     while ((dynamic_cast<CloseAll*>(action) == nullptr));
-    cout<<"Closeall Broke the loop"<<endl;
 }
 
 void Restaurant::closeRestaurant() {

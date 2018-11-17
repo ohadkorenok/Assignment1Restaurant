@@ -5,28 +5,17 @@
 
 BaseAction *Parser::parse(std::string firstWord, std::string fullLine, Restaurant &restaurant) {
     BaseAction *action = nullptr;
-//    regex openReg("open\\s*(\\d+)\\s*(.*)");
-//    regex orderReg("order\\s*(\\d+)");
-//    regex moveReg("move\\s*(\\d+)\\s*(\\d+)\\s*(\\d+)");
-//    regex closeReg("close\\s*(\\d+)");
-//    regex closeAllReg("closeall\\s*");
-//    regex menuReg("menu\\s*");
-//    regex statusReg("status\\s*(\\d+)");
-//    regex logReg("log");
-//    regex backupRestaurantReg("backup");
-//    regex restoreReg("restore");
-
     map<string, regex> regexDict = {
-            {"open", regex("open\\s*(\\d+)\\s*(.*)")},
-            {"order", regex("order\\s*(\\d+)")},
-            {"move", regex("move\\s*(\\d+)\\s*(\\d+)\\s*(\\d+)")},
-            {"close", regex("close\\s*(\\d+)")},
+            {"open",     regex("open\\s*(\\d+)\\s*(.*)")},
+            {"order",    regex("order\\s*(\\d+)")},
+            {"move",     regex("move\\s*(\\d+)\\s*(\\d+)\\s*(\\d+)")},
+            {"close",    regex("close\\s*(\\d+)")},
             {"closeall", regex("closeall\\s*")},
-            {"menu", regex("menu\\s*")},
-            {"status", regex("status\\s*(\\d+)")},
-            {"log", regex("log")},
-            {"backup", regex("backup")},
-            {"restore", regex("restore")}};
+            {"menu",     regex("menu\\s*")},
+            {"status",   regex("status\\s*(\\d+)")},
+            {"log",      regex("log")},
+            {"backup",   regex("backup")},
+            {"restore",  regex("restore")}};
     std::smatch smatch1;
     regex_search(fullLine, smatch1, regexDict[firstWord]);
     if (!smatch1.empty()) {

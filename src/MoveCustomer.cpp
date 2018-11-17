@@ -1,6 +1,3 @@
-//
-// Created by nitzan on 10/11/18.
-//
 #include "../include/Action.h"
 #include "../include/Table.h"
 #include "../include/Restaurant.h"
@@ -36,7 +33,7 @@ void MoveCustomer::act(Restaurant &restaurant) {
             if (copySrcOrders[j].first == id) {
                 t2->getOrders().push_back(copySrcOrders[j]);
             } else {
-                srcOrders.push_back(copySrcOrders[j]); //TODO ::check what the fuck is going on with the copy.
+                srcOrders.push_back(copySrcOrders[j]);
             }
         }
         t1->getOrders().clear();

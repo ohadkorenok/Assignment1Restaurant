@@ -1,6 +1,3 @@
-//
-// Created by ohadkoren on 08/11/18.
-//
 
 #include <limits>
 #include "../include/Customer.h"
