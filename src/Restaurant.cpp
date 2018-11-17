@@ -123,7 +123,7 @@ Restaurant::Restaurant(const std::string &configFilePath) {
 }
 
 /**
- * This program builds the menu from the menuArgument. TODO:: return the desired flag , true or false
+ * This program builds the menu from the menuArgument.
  * @param menuArgument
  * @return
  */
@@ -151,7 +151,6 @@ void Restaurant::buildMenuFromArguments(string menuArgument) {
         } else if (dishArgument[1] == "VEG") {
             dishType = DishType::VEG;
         } else cout << "problem with building the menu, there is no such dish " + dishArgument[1] << endl;
-        string ohad = "ohad";
         if ((dishType == DishType::ALC )| (dishType == DishType::VEG) | (dishType==DishType::SPC) | (dishType == DishType::BVG)) {
             Dish dish = Dish(j, dishArgument[0], stoi(dishArgument[2]), dishType);
             this->menu.push_back(dish);
@@ -199,11 +198,17 @@ void Restaurant::start() {
     BaseAction* action=nullptr;
     do{
         getline(cin, line);
-        string firstWord = line.substr(0, line.find(" "));
+        cout<<"the input line is : "+line<<endl;
+        string firstWord = line.substr(0, line.find(' '));
+        if(firstWord == ""){
+            firstWord = line.substr(0, line.find('\n'));
+        }
+        cout << "after the substring" << endl;
         action = Parser::parse(firstWord, line, *this);
         actionsLog.push_back(action);
     }
     while ((dynamic_cast<CloseAll*>(action) == nullptr));
+    cout <<"closeAll succeeded" << endl;
 }
 
 void Restaurant::closeRestaurant() {
