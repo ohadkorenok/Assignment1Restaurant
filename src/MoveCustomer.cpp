@@ -22,6 +22,7 @@ void MoveCustomer::act(Restaurant &restaurant) {
             (!t2->isOpen()) | (t1->getCustomer(id) == nullptr) | (t2->getCustomers().size() >= size_t (t2->getCapacity()))) {
         string err = "“Cannot move customer";
         error(err);
+        cout << "Error: "+err << endl;
     } else {
         vector<OrderPair> copySrcOrders;
         vector<OrderPair> srcOrders = t1->getOrders();
@@ -50,7 +51,7 @@ void MoveCustomer::act(Restaurant &restaurant) {
 string MoveCustomer::toString() const {
     string toRet = "move " + to_string(srcTable) + " " + to_string(dstTable) + " " + to_string(id);
     if (this->getStatus() == COMPLETED)
-        toRet += " COMPLETED";
+        toRet += " Completed";
     else if (this->getStatus() == ERROR)
         toRet += " ERROR:" + this->getErrorMsg();
     else

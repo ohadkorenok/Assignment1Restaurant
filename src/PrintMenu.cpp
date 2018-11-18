@@ -20,7 +20,7 @@ void PrintMenu::act(Restaurant &restaurant) {
 string PrintMenu::toString() const {
     string toRet="menu";
     if(this->getStatus()==COMPLETED)
-        toRet+=" COMPLETED";
+        toRet+=" Completed";
     else
         toRet="You didn't activate act method.";
     return toRet;

@@ -14,8 +14,9 @@ Close::Close(int id, ActionStatus actionStatus, string errorMsg) : BaseAction(),
 void Close::act(Restaurant &restaurant) {
     Table* t1=restaurant.getTable(tableId);
     if((t1 == nullptr) | (!t1->isOpen())){
-        string err="Table does not exist or isn't open";
-        BaseAction::error(err);
+        string err="Table does not exist or is not open";
+        cout << "Error: "+err << endl;
+        error(err);
     }
     else{
         cout<< "Table " + to_string(tableId) +" was closed. Bill "+ to_string(t1->getBill())+"NIS"+"\n"<<std::endl;
@@ -27,7 +28,7 @@ void Close::act(Restaurant &restaurant) {
 string Close::toString() const {
     string toRet="close "+to_string(tableId);
     if(this->getStatus()==COMPLETED)
-        toRet+=" COMPLETED";
+        toRet+=" Completed";
     else if(this->getStatus()==ERROR)
         toRet+=" ERROR:"+this->getErrorMsg();
     else

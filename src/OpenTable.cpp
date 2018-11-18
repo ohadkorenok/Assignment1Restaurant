@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "../include/Action.h"
 #include "../include/Table.h"
 #include "../include/Restaurant.h"
@@ -20,11 +21,10 @@ void OpenTable::act(Restaurant &restaurant) {
     if ((t1 == nullptr) | (t1->isOpen())) {
         string err = "Table does not exist or is already open";
         error(err);
+        cout << "Error: "+err << endl;
     } else if (customers.size() > size_t (t1->getCapacity())) {
-        error("The desired table is not big enough for all of the customers, could not open the table!  ");
-    } else if (customers.empty()) {
-        error("no suitable customers for this table! The table will not be opened. ");
-    } else {
+    }
+     else {
         t1->openTable();
         for (size_t i = 0; i < customers.size(); ++i) {
             Customer *customer1=nullptr;
@@ -47,11 +47,13 @@ void OpenTable::act(Restaurant &restaurant) {
 string OpenTable::toString() const {
     string toRet = "open " + to_string(tableId);
     for (Customer *i : customers) {
-        toRet += " " + i->getName() + "," + i->getType();
+        string type = i->getType();
+        transform(type.begin(), type.end(), type.begin(), ::tolower);
+        toRet += " " + i->getName() + "," + type;
     }
 
     if (this->getStatus() == COMPLETED)
-        toRet += " COMPLETED";
+        toRet += " Completed";
     else if (this->getStatus() == ERROR)
         toRet += " ERROR:" + this->getErrorMsg();
     else

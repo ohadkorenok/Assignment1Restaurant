@@ -16,8 +16,9 @@ Order::Order(int id, ActionStatus actionStatus, string errorMsg) : BaseAction::B
 void Order::act(Restaurant &restaurant) {
     Table *t1 = restaurant.getTable(tableId);
     if ((t1 == nullptr) | (!t1->isOpen())) {
-        string err = "Table does not exist or is already open";
-        BaseAction::error(err);
+        string err = "Table does not exist or is not open";
+        error(err);
+        cout << "Error: "+err << endl;
     } else {
         t1->order(restaurant.getMenu());
         vector<OrderPair> lastOrders = t1->getLastOrderList();
@@ -31,7 +32,7 @@ void Order::act(Restaurant &restaurant) {
 string Order::toString() const {
     string toRet = "order " + to_string(tableId);
     if (this->getStatus() == COMPLETED)
-        toRet += " COMPLETED";
+        toRet += " Completed";
     else if (this->getStatus() == ERROR)
         toRet += " ERROR:" + this->getErrorMsg();
     else

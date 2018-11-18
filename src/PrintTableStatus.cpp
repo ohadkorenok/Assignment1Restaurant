@@ -30,7 +30,7 @@ void PrintTableStatus::act(Restaurant &restaurant) {
 string PrintTableStatus::toString() const {
     string toRet="status "+to_string(tableId);
     if(this->getStatus()==COMPLETED)
-        toRet+=" COMPLETED";
+        toRet+=" Completed";
     else
         toRet="You didn't activate act method.";
     return toRet;

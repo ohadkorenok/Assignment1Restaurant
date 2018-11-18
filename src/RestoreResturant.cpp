@@ -15,21 +15,26 @@ void RestoreResturant::act(Restaurant &restaurant) {
     if (backup != nullptr) {
         restaurant = (*backup);
         complete();
-    } else
-        error("No backup available");
+    } else {
+
+        string err = "No backup available";
+        error(err);
+        cout << "Error: " + err << endl;
+    }
+
 }
 
 std::string RestoreResturant::toString() const {
     string toRet = "restore";
     if (this->getStatus() == COMPLETED)
-        toRet += " COMPLETED";
+        toRet += " Completed";
     else
         toRet = "You didn't activate act method.";
     return toRet;
 }
 
 BaseAction *RestoreResturant::clone() {
-    BaseAction* toRet= nullptr;
+    BaseAction *toRet = nullptr;
     toRet = new RestoreResturant(this->getStatus());
     return toRet;
 }

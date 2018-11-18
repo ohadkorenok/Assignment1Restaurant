@@ -24,7 +24,7 @@ void BackupRestaurant::act(Restaurant &restaurant) {
 std::string BackupRestaurant::toString() const {
     string toRet = "backup";
     if (this->getStatus() == COMPLETED)
-        toRet += " COMPLETED";
+        toRet += " Completed";
     else
         toRet = "You didn't activate act method.";
     return toRet;
