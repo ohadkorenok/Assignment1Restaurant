@@ -199,7 +199,7 @@ class RestoreResturant : public BaseAction {
 public:
     RestoreResturant();
 
-    RestoreResturant(ActionStatus actionStatus);
+    RestoreResturant(ActionStatus actionStatus, string errorMsg);
 
     void act(Restaurant &restaurant);
 

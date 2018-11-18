@@ -14,8 +14,6 @@ string PrintActionsLog::toString() const {
     string toRet="log";
     if(this->getStatus()==COMPLETED)
         toRet+=" Completed";
-    else
-        toRet="You didn't activate act method.";
     return toRet;
 }
 

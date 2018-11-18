@@ -20,7 +20,7 @@ void MoveCustomer::act(Restaurant &restaurant) {
     Table *t2 = restaurant.getTable(dstTable);
     if ((t1 == nullptr) | (!t1->isOpen()) | (t2 == nullptr) |
             (!t2->isOpen()) | (t1->getCustomer(id) == nullptr) | (t2->getCustomers().size() >= size_t (t2->getCapacity()))) {
-        string err = "“Cannot move customer";
+        string err = "Cannot move customer";
         error(err);
         cout << "Error: "+err << endl;
     } else {
@@ -53,9 +53,7 @@ string MoveCustomer::toString() const {
     if (this->getStatus() == COMPLETED)
         toRet += " Completed";
     else if (this->getStatus() == ERROR)
-        toRet += " ERROR:" + this->getErrorMsg();
-    else
-        toRet = "You didn't activate act method.";
+        toRet += " Error: " + this->getErrorMsg();
     return toRet;
 }
 BaseAction* MoveCustomer::clone() {

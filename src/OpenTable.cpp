@@ -38,8 +38,8 @@ void OpenTable::act(Restaurant &restaurant) {
                 customer1 = new SpicyCustomer(customers[i]->getName(), customers[i]->getId());
             }
             t1->addCustomer(customer1);
-            complete();
         }
+        complete();
     }
 
 }
@@ -56,8 +56,6 @@ string OpenTable::toString() const {
         toRet += " Completed";
     else if (this->getStatus() == ERROR)
         toRet += " Error: " + this->getErrorMsg();
-    else
-        toRet = "You didn't activate act method. status is PENDING";
     return toRet;
 }
 

@@ -5,7 +5,7 @@ using namespace std;
 
 CloseAll::CloseAll() {};
 void CloseAll::act(Restaurant &restaurant) {
-    for(int i=0;i<restaurant.getNumOfTables()-1;i++){
+    for(int i=0;i<restaurant.getNumOfTables();i++){
         Table* t1=restaurant.getTable(i);
         if(t1->isOpen()) {
             Close tableI = Close(i);

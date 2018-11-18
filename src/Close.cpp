@@ -30,9 +30,7 @@ string Close::toString() const {
     if(this->getStatus()==COMPLETED)
         toRet+=" Completed";
     else if(this->getStatus()==ERROR)
-        toRet+=" ERROR:"+this->getErrorMsg();
-    else
-        toRet="You didn't activate act method.";
+        toRet+=" Error: "+this->getErrorMsg();
     return toRet;
 }
 BaseAction* Close::clone() {

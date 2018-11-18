@@ -4,8 +4,6 @@
 #include "regex"
 
 BaseAction *Parser::parse(std::string firstWord, std::string fullLine, Restaurant &restaurant) {
-//    cout << "the first word is:"+ firstWord<<endl;
-//    cout <<"the full line is : "+fullLine<<endl;
     BaseAction *action = nullptr;
     map<string, regex> regexDict = {
             {"open",     regex("open\\s*(\\d+)\\s*(.*)")},
@@ -116,6 +114,5 @@ vector<Customer *> Parser::parseOpen(string match, Restaurant &restaurant) {
 BaseAction *Parser::runAction(BaseAction *action, Restaurant &restaurant) {
     action->act(restaurant);
     vector<BaseAction *> actionsLog = restaurant.getActionsLog();
-//    cout << action->toString() << endl;
     return action;
 }

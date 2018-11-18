@@ -113,11 +113,7 @@ Restaurant::Restaurant() {}
 Restaurant::Restaurant(const std::string &configFilePath) {
     this->open = true;
     this->nextCustomerId = 0;
-//    std::string pathname = __BASE_FILE__; //TODO:: change pathname to bin version.
-//    string const configurationFile = pathname.substr(0, pathname.size() - 19) + "/" + configFilePath;
     vector<string> arguments;
-//    arguments = Restaurant::extractArgumentsFromConfig(configurationFile);//TODO:: change pathname to bin version.
-//    arguments = Restaurant::extractArgumentsFromConfig(configFilePath);//TODO:: change pathname to bin version.
     arguments = Restaurant::extractArgumentsFromConfig(configFilePath);
     if (arguments.size() == 3) {
         createTablesFromArguments(arguments);
@@ -139,9 +135,6 @@ void Restaurant::buildMenuFromArguments(string menuArgument) {
     while (getline(is, token, '\n')) {
         if(token == "")
             continue;
-//        while (token[0] == '#' || token == "\r" || token == "\n") {
-//            std::getline(is, token);
-//        }
         istringstream tokenStream(token);
         int i = 0;
         while (getline(tokenStream, dishToken, ',') && i <= 2) {
