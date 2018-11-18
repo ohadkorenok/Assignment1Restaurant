@@ -6,8 +6,11 @@ using namespace std;
 CloseAll::CloseAll() {};
 void CloseAll::act(Restaurant &restaurant) {
     for(int i=0;i<restaurant.getNumOfTables()-1;i++){
-        Close tableI = Close(i);
-        tableI.act(restaurant);
+        Table* t1=restaurant.getTable(i);
+        if(t1->isOpen()) {
+            Close tableI = Close(i);
+            tableI.act(restaurant);
+        }
     }
     restaurant.closeRestaurant();
     complete();

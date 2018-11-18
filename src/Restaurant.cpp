@@ -65,7 +65,7 @@ Restaurant &Restaurant::operator=(const Restaurant &Restaurant) {
         delete tables[l];
         tables[l] = nullptr;
     }
-   tables.clear();
+    tables.clear();
     for (size_t m = 0; m < actionsLog.size(); ++m) {
         delete actionsLog[m];
         actionsLog[m] = nullptr;
@@ -122,7 +122,6 @@ Restaurant::Restaurant(const std::string &configFilePath) {
     if (arguments.size() == 3) {
         createTablesFromArguments(arguments);
         buildMenuFromArguments(arguments[2]);
-
     }
 }
 
@@ -132,13 +131,17 @@ Restaurant::Restaurant(const std::string &configFilePath) {
  * @return
  */
 void Restaurant::buildMenuFromArguments(string menuArgument) {
-    vector<Dish> menu;
     string token;
     string dishToken;
     vector<string> dishArgument(3);
     istringstream is(menuArgument);
     int j = 0;
     while (getline(is, token, '\n')) {
+        if(token == "")
+            continue;
+//        while (token[0] == '#' || token == "\r" || token == "\n") {
+//            std::getline(is, token);
+//        }
         istringstream tokenStream(token);
         int i = 0;
         while (getline(tokenStream, dishToken, ',') && i <= 2) {
@@ -179,7 +182,7 @@ bool Restaurant::createTablesFromArguments(vector<string> argument) {
     int i = 0;
     istringstream is(argument[1]);
     while (getline(is, token, ',') && i < numberOfTables) {
-        tables[i]=nullptr;
+        tables[i] = nullptr;
         tables[i] = new Table(stoi(token));
         i++;
     }
@@ -199,14 +202,13 @@ Table *Restaurant::getTable(int ind) {
 void Restaurant::start() {
     cout << "Restaurant is now open! " << endl;
     string line;
-    BaseAction* action=nullptr;
+    BaseAction *action = nullptr;
     do {
         getline(cin, line);
         string firstWord = line.substr(0, line.find(' '));
         action = Parser::parse(firstWord, line, *this);
         actionsLog.push_back(action);
-    }
-    while ((dynamic_cast<CloseAll*>(action) == nullptr));
+    } while ((dynamic_cast<CloseAll *>(action) == nullptr));
 }
 
 void Restaurant::closeRestaurant() {
@@ -237,12 +239,12 @@ void Restaurant::clear() {
 void Restaurant::fillMeUp(vector<Table *> otherTables, vector<Dish> otherMenu, vector<BaseAction *> otherActionsLog,
                           bool otherOpen) {
     for (size_t i = 0; i < otherTables.size(); ++i) {
-        Table* tabletoPush=nullptr;
-        tabletoPush=new Table(*otherTables[i]);
+        Table *tabletoPush = nullptr;
+        tabletoPush = new Table(*otherTables[i]);
         tables.push_back(tabletoPush);
     }
     for (size_t j = 0; j < otherActionsLog.size(); ++j) {
-        BaseAction* action = otherActionsLog[j]->clone();
+        BaseAction *action = otherActionsLog[j]->clone();
         actionsLog.push_back(action);
 
     }

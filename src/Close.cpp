@@ -19,7 +19,7 @@ void Close::act(Restaurant &restaurant) {
         error(err);
     }
     else{
-        cout<< "Table " + to_string(tableId) +" was closed. Bill "+ to_string(t1->getBill())+"NIS"+"\n"<<std::endl;
+        cout<< "Table " + to_string(tableId) +" was closed. Bill "+ to_string(t1->getBill())+"NIS"<<std::endl;
         t1->closeTable();
         complete();
     }

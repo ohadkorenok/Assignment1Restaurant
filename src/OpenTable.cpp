@@ -55,7 +55,7 @@ string OpenTable::toString() const {
     if (this->getStatus() == COMPLETED)
         toRet += " Completed";
     else if (this->getStatus() == ERROR)
-        toRet += " ERROR:" + this->getErrorMsg();
+        toRet += " Error: " + this->getErrorMsg();
     else
         toRet = "You didn't activate act method. status is PENDING";
     return toRet;

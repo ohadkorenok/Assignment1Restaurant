@@ -13,7 +13,7 @@ PrintMenu::PrintMenu(ActionStatus actionStatus, string errorMsg) {
 
 void PrintMenu::act(Restaurant &restaurant) {
     for(Dish i : restaurant.getMenu())
-        cout<<i.getName()+" "+ i.getTypeInString()+" "+ to_string(i.getPrice())+"NIS"+"\n"<<endl;
+        cout<<i.getName()+" "+ i.getTypeInString()+" "+ to_string(i.getPrice())+"NIS"<<endl;
 
     complete();
 }
